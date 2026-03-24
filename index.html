@@ -277,7 +277,7 @@ async function startComparison(){
 
 async function callGroq(pages1,pages2){
   const fmt=pages=>pages.map(p=>`--- Page ${p.pageNum} ---\n${p.text||'[empty]'}`).join('\n\n');
-  const maxChars=20000;
+  const maxChars=6000;
   let doc1=fmt(pages1),doc2=fmt(pages2);
   if(doc1.length>maxChars)doc1=doc1.slice(0,maxChars)+'\n[truncated]';
   if(doc2.length>maxChars)doc2=doc2.slice(0,maxChars)+'\n[truncated]';
@@ -324,7 +324,7 @@ Return ONLY valid JSON (absolutely no markdown, no text outside the JSON object)
     method:'POST',
     headers:{'Content-Type':'application/json','Authorization':'Bearer '+apiKey},
     body:JSON.stringify({
-      model:'llama-3.3-70b-versatile',
+      model:'llama-3.1-8b-instant',
       messages:[
         {role:'system',content:'You are an expert document auditor. Always respond with valid JSON only. No markdown, no explanations outside the JSON.'},
         {role:'user',content:prompt}
