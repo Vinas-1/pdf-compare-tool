@@ -14,42 +14,43 @@
   --purple:#7c3aed;--purple-bg:#f5f3ff;--purple-border:#c4b5fd;
   --green:#16a34a;--green-bg:#f0fdf4;--green-border:#86efac;
   --amber:#b45309;--amber-bg:#fffbeb;--amber-border:#fcd34d;
-  --accent:#1a73e8;
+  --accent:#f55036;
 }
 body{font-family:'IBM Plex Sans',sans-serif;background:var(--bg);color:var(--ink);min-height:100vh;overflow-x:hidden}
 .phase{display:none}.phase.active{display:flex}
 
 #api-banner{
-  background:linear-gradient(135deg,#1557a0,#1a73e8);color:#fff;
+  background:linear-gradient(135deg,#1a1a2e,#f55036);color:#fff;
   padding:14px 28px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:0.85rem;
 }
-.api-banner-left{display:flex;align-items:center;gap:10px}
+.api-banner-left{display:flex;align-items:center;gap:12px}
 .api-input-wrap{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
 #apiKeyInput{
   background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);color:#fff;
-  padding:7px 14px;border-radius:8px;font-size:0.82rem;width:320px;font-family:'IBM Plex Mono',monospace;outline:none;
+  padding:7px 14px;border-radius:8px;font-size:0.82rem;width:300px;font-family:'IBM Plex Mono',monospace;outline:none;
 }
 #apiKeyInput::placeholder{color:rgba(255,255,255,0.5)}
 #apiKeyInput:focus{background:rgba(255,255,255,0.22);border-color:rgba(255,255,255,0.6)}
-.api-save-btn{background:#fff;color:#1a73e8;border:none;padding:7px 16px;border-radius:8px;font-size:0.82rem;font-weight:700;cursor:pointer;transition:all .2s}
-.api-save-btn:hover{background:#e8f0fe}
+.api-save-btn{background:#fff;color:#f55036;border:none;padding:7px 16px;border-radius:8px;font-size:0.82rem;font-weight:700;cursor:pointer;transition:all .2s}
+.api-save-btn:hover{background:#fff0ee}
 .api-status{font-size:0.8rem;padding:4px 12px;border-radius:20px;font-weight:600}
 .api-status.set{background:rgba(22,163,74,0.35);color:#86efac}
 .api-status.notset{background:rgba(220,38,38,0.35);color:#fca5a5}
 .api-help{font-size:0.76rem;color:rgba(255,255,255,0.65);margin-top:3px}
-.api-help a{color:#93c5fd;text-decoration:none;font-weight:600}
+.api-help a{color:#ffd6cc;text-decoration:none;font-weight:700}
+.api-help a:hover{text-decoration:underline}
 
-#phase-upload{flex-direction:column;align-items:center;justify-content:center;min-height:calc(100vh - 70px);padding:40px 20px;gap:32px}
+#phase-upload{flex-direction:column;align-items:center;justify-content:center;min-height:calc(100vh - 72px);padding:40px 20px;gap:32px}
 .logo{text-align:center}
 .logo h1{font-family:'Playfair Display',serif;font-size:2.2rem;color:var(--ink);letter-spacing:-0.5px}
 .logo p{color:var(--muted);font-size:0.95rem;margin-top:6px;font-weight:300}
-.gemini-badge{display:inline-flex;align-items:center;gap:6px;background:#e8f0fe;color:#1a73e8;padding:5px 14px;border-radius:20px;font-size:0.78rem;font-weight:700;margin-top:10px;border:1px solid #c5d9f7}
+.groq-badge{display:inline-flex;align-items:center;gap:6px;background:#fff0ee;color:#f55036;padding:5px 14px;border-radius:20px;font-size:0.78rem;font-weight:700;margin-top:10px;border:1px solid #ffd6cc}
 
 .upload-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;width:100%;max-width:760px}
 @media(max-width:600px){.upload-grid{grid-template-columns:1fr}}
 
 .drop-zone{background:var(--surface);border:2px dashed var(--border);border-radius:16px;padding:36px 24px;text-align:center;cursor:pointer;transition:all .2s;position:relative}
-.drop-zone:hover,.drop-zone.drag-over{border-color:var(--accent);background:#eff6ff}
+.drop-zone:hover,.drop-zone.drag-over{border-color:var(--accent);background:#fff5f3}
 .drop-zone.has-file{border-style:solid;border-color:var(--green);background:var(--green-bg)}
 .drop-zone input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
 .dz-icon{font-size:2rem;margin-bottom:10px}
@@ -59,10 +60,10 @@ body{font-family:'IBM Plex Sans',sans-serif;background:var(--bg);color:var(--ink
 .dz-filename{font-size:0.82rem;color:var(--green);font-weight:500;margin-top:8px;font-family:'IBM Plex Mono',monospace;word-break:break-all}
 
 .compare-btn{background:var(--ink);color:#fff;border:none;padding:16px 48px;border-radius:10px;font-size:1rem;font-weight:600;cursor:pointer;transition:all .2s}
-.compare-btn:hover:not(:disabled){background:#1a73e8;transform:translateY(-1px);box-shadow:0 4px 20px rgba(26,115,232,0.35)}
+.compare-btn:hover:not(:disabled){background:#f55036;transform:translateY(-1px);box-shadow:0 4px 20px rgba(245,80,54,0.35)}
 .compare-btn:disabled{opacity:0.35;cursor:not-allowed}
 
-#phase-process{flex-direction:column;align-items:center;justify-content:center;min-height:calc(100vh - 70px);gap:24px}
+#phase-process{flex-direction:column;align-items:center;justify-content:center;min-height:calc(100vh - 72px);gap:24px}
 .proc-icon{font-size:3rem;animation:spin 2s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
 .proc-title{font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--ink)}
@@ -71,7 +72,7 @@ body{font-family:'IBM Plex Sans',sans-serif;background:var(--bg);color:var(--ink
 .proc-step .step-icon{font-size:1.2rem;width:28px;text-align:center}
 .proc-step .step-text{font-size:0.88rem;color:var(--ink2)}
 .proc-step.done .step-icon{visibility:hidden}
-.proc-step.active{border-color:#1a73e8;background:#eff6ff}
+.proc-step.active{border-color:#f55036;background:#fff5f3}
 .proc-step.active .step-icon{animation:pulse 1s infinite}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.3}}
 
@@ -129,14 +130,14 @@ body{font-family:'IBM Plex Sans',sans-serif;background:var(--bg);color:var(--ink
 
 <div id="api-banner">
   <div class="api-banner-left">
-    <span style="font-size:1.4rem">🔑</span>
+    <span style="font-size:1.5rem">⚡</span>
     <div>
-      <div style="font-weight:600">Google Gemini API Key &nbsp;<span style="background:rgba(255,255,255,0.2);padding:2px 8px;border-radius:10px;font-size:0.75rem;font-weight:700">100% FREE</span></div>
-      <div class="api-help">Get your free key → <a href="https://aistudio.google.com/app/apikey" target="_blank">aistudio.google.com</a> → Sign in with Google → Get API Key. No credit card needed.</div>
+      <div style="font-weight:700">Groq API Key required &nbsp;<span style="background:rgba(255,255,255,0.2);padding:2px 10px;border-radius:10px;font-size:0.75rem">FREE · Works in India · 14,400 req/day</span></div>
+      <div class="api-help">Get your free key → <a href="https://console.groq.com/keys" target="_blank">console.groq.com/keys</a> → Sign in with Google → Create API Key. No credit card needed.</div>
     </div>
   </div>
   <div class="api-input-wrap">
-    <input type="password" id="apiKeyInput" placeholder="AIzaSy..." />
+    <input type="password" id="apiKeyInput" placeholder="gsk_..." />
     <button class="api-save-btn" onclick="saveApiKey()">Save Key</button>
     <span class="api-status notset" id="apiStatus">Not set</span>
   </div>
@@ -146,7 +147,7 @@ body{font-family:'IBM Plex Sans',sans-serif;background:var(--bg);color:var(--ink
   <div class="logo">
     <h1>📄 Document Comparison Engine</h1>
     <p>AI-powered PDF diff — changes, deletions, additions & smart date validation</p>
-    <div><span class="gemini-badge">⚡ Powered by Google Gemini — Free</span></div>
+    <div><span class="groq-badge">⚡ Powered by Groq + Llama 3 — Free in India</span></div>
   </div>
   <div class="upload-grid">
     <div class="drop-zone" id="dz1" onclick="document.getElementById('f1').click()">
@@ -175,7 +176,7 @@ body{font-family:'IBM Plex Sans',sans-serif;background:var(--bg);color:var(--ink
   <div class="proc-steps">
     <div class="proc-step active" id="step1"><span class="step-icon">📖</span><span class="step-text">Extracting text from PDF A…</span></div>
     <div class="proc-step" id="step2"><span class="step-icon">📖</span><span class="step-text">Extracting text from PDF B…</span></div>
-    <div class="proc-step" id="step3"><span class="step-icon">🤖</span><span class="step-text">Gemini AI comparing both documents…</span></div>
+    <div class="proc-step" id="step3"><span class="step-icon">🤖</span><span class="step-text">Groq AI comparing both documents…</span></div>
     <div class="proc-step" id="step4"><span class="step-icon">📋</span><span class="step-text">Generating comparison report…</span></div>
   </div>
 </div>
@@ -204,7 +205,7 @@ let files={1:null,2:null},names={1:'',2:''},apiKey='';
 
 function saveApiKey(){
   const val=document.getElementById('apiKeyInput').value.trim();
-  if(!val||val.length<10){alert('Please enter a valid Google Gemini API key (starts with AIza...)');return;}
+  if(!val||val.length<10){alert('Please enter a valid Groq API key (starts with gsk_...)');return;}
   apiKey=val;
   const st=document.getElementById('apiStatus');
   st.textContent='✓ Set';st.className='api-status set';
@@ -263,20 +264,20 @@ async function extractText(file){
 }
 
 async function startComparison(){
-  if(!apiKey){alert('Please enter your Gemini API key first.');return;}
+  if(!apiKey){alert('Please enter your Groq API key first.');return;}
   showPhase('phase-process');
   try{
     setStep(1);const pages1=await extractText(files[1]);
     setStep(2);const pages2=await extractText(files[2]);
-    setStep(3);const result=await callGemini(pages1,pages2);
-    setStep(4);await new Promise(r=>setTimeout(r,600));
+    setStep(3);const result=await callGroq(pages1,pages2);
+    setStep(4);await new Promise(r=>setTimeout(r,500));
     renderReport(result);showPhase('phase-report');
   }catch(err){alert('Error: '+err.message);showPhase('phase-upload');}
 }
 
-async function callGemini(pages1,pages2){
+async function callGroq(pages1,pages2){
   const fmt=pages=>pages.map(p=>`--- Page ${p.pageNum} ---\n${p.text||'[empty]'}`).join('\n\n');
-  const maxChars=25000;
+  const maxChars=20000;
   let doc1=fmt(pages1),doc2=fmt(pages2);
   if(doc1.length>maxChars)doc1=doc1.slice(0,maxChars)+'\n[truncated]';
   if(doc2.length>maxChars)doc2=doc2.slice(0,maxChars)+'\n[truncated]';
@@ -295,7 +296,7 @@ Instructions:
 3. List every modification, deletion, and addition with exact text
 4. Write a detailed plain-English summary of all changes
 
-Return ONLY valid JSON (no markdown, no text outside JSON):
+Return ONLY valid JSON (absolutely no markdown, no text outside the JSON object):
 {
   "summary": "Detailed plain-English summary of all changes",
   "stats": {"modified": 0, "deleted": 0, "added": 0},
@@ -319,18 +320,27 @@ Return ONLY valid JSON (no markdown, no text outside JSON):
   ]
 }`;
 
-  const url=`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
-  const resp=await fetch(url,{
+  const resp=await fetch('https://api.groq.com/openai/v1/chat/completions',{
     method:'POST',
-    headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({contents:[{parts:[{text:prompt}]}],generationConfig:{temperature:0.1,maxOutputTokens:8192}})
+    headers:{'Content-Type':'application/json','Authorization':'Bearer '+apiKey},
+    body:JSON.stringify({
+      model:'llama-3.3-70b-versatile',
+      messages:[
+        {role:'system',content:'You are an expert document auditor. Always respond with valid JSON only. No markdown, no explanations outside the JSON.'},
+        {role:'user',content:prompt}
+      ],
+      temperature:0.1,
+      max_tokens:8000,
+      response_format:{type:'json_object'}
+    })
   });
+
   if(!resp.ok){
     const err=await resp.json();
-    throw new Error('Gemini API error: '+(err?.error?.message||resp.statusText));
+    throw new Error('Groq API error: '+(err?.error?.message||resp.statusText));
   }
   const data=await resp.json();
-  const text=data?.candidates?.[0]?.content?.parts?.[0]?.text||'';
+  const text=data?.choices?.[0]?.message?.content||'';
   const clean=text.replace(/```json|```/g,'').trim();
   try{return JSON.parse(clean);}
   catch(e){
@@ -350,7 +360,10 @@ function renderReport(result){
   document.getElementById('badge-del').innerHTML=`🟣 ${stats.deleted||0} Deleted`;
   document.getElementById('badge-add').innerHTML=`🟢 ${stats.added||0} Added`;
   const dateIssues=result.date_issues||[];
-  if(dateIssues.length){document.getElementById('badge-date').style.display='';document.getElementById('badge-date').innerHTML=`⚠️ ${dateIssues.length} Date Issue${dateIssues.length>1?'s':''}`;}
+  if(dateIssues.length){
+    document.getElementById('badge-date').style.display='';
+    document.getElementById('badge-date').innerHTML=`⚠️ ${dateIssues.length} Date Issue${dateIssues.length>1?'s':''}`;
+  }
 
   let html='';
   html+=`<div class="legend"><span style="font-size:0.75rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px">Legend:</span><div class="leg-item"><div class="leg-dot leg-red"></div>Modified</div><div class="leg-item"><div class="leg-dot leg-purple"></div>Deleted</div><div class="leg-item"><div class="leg-dot leg-green"></div>Added</div></div>`;
@@ -376,8 +389,9 @@ function renderReport(result){
   }
 
   const changes=result.changes||[];
-  if(!changes.length){html+=`<div class="no-changes">🎉 No differences found between the two documents!</div>`;}
-  else{
+  if(!changes.length){
+    html+=`<div class="no-changes">🎉 No differences found between the two documents!</div>`;
+  }else{
     html+=`<div class="section-label">🔍 Detailed Changes (${changes.length} total)</div>`;
     changes.forEach(c=>{
       const pl=[c.page_a?`Page ${c.page_a} (Doc A)`:'',c.page_b?`Page ${c.page_b} (Doc B)`:'']. filter(Boolean).join(' → ');
