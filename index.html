@@ -9,7 +9,7 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#f3f1eb;--surface:#ffffff;--ink:#0e1628;--ink2:#2d3a5a;--muted:#8892a4;--border:#dddad2;
+  --bg:#f3f1eb;--surface:#fff;--ink:#0e1628;--ink2:#2d3a5a;--muted:#8892a4;--border:#dddad2;
   --red:#dc2626;--red-bg:#fff1f1;--red-border:#fca5a5;
   --purple:#7c3aed;--purple-bg:#f5f3ff;--purple-border:#c4b5fd;
   --green:#16a34a;--green-bg:#f0fdf4;--green-border:#86efac;
@@ -19,110 +19,123 @@
 body{font-family:'IBM Plex Sans',sans-serif;background:var(--bg);color:var(--ink);min-height:100vh;overflow-x:hidden}
 .phase{display:none}.phase.active{display:flex}
 
+/* API BANNER */
 #api-banner{
   background:linear-gradient(135deg,#1a1a2e,#f55036);color:#fff;
-  padding:14px 28px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:0.85rem;
+  padding:12px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;font-size:0.83rem;
 }
-.api-banner-left{display:flex;align-items:center;gap:12px}
+.api-banner-left{display:flex;align-items:center;gap:10px}
 .api-input-wrap{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
 #apiKeyInput{
   background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);color:#fff;
-  padding:7px 14px;border-radius:8px;font-size:0.82rem;width:300px;font-family:'IBM Plex Mono',monospace;outline:none;
+  padding:6px 12px;border-radius:8px;font-size:0.8rem;width:280px;font-family:'IBM Plex Mono',monospace;outline:none;
 }
-#apiKeyInput::placeholder{color:rgba(255,255,255,0.5)}
+#apiKeyInput::placeholder{color:rgba(255,255,255,0.45)}
 #apiKeyInput:focus{background:rgba(255,255,255,0.22);border-color:rgba(255,255,255,0.6)}
-.api-save-btn{background:#fff;color:#f55036;border:none;padding:7px 16px;border-radius:8px;font-size:0.82rem;font-weight:700;cursor:pointer;transition:all .2s}
-.api-save-btn:hover{background:#fff0ee}
-.api-status{font-size:0.8rem;padding:4px 12px;border-radius:20px;font-weight:600}
+.api-save-btn{background:#fff;color:#f55036;border:none;padding:6px 14px;border-radius:8px;font-size:0.8rem;font-weight:700;cursor:pointer}
+.api-status{font-size:0.78rem;padding:3px 10px;border-radius:20px;font-weight:600}
 .api-status.set{background:rgba(22,163,74,0.35);color:#86efac}
 .api-status.notset{background:rgba(220,38,38,0.35);color:#fca5a5}
-.api-help{font-size:0.76rem;color:rgba(255,255,255,0.65);margin-top:3px}
 .api-help a{color:#ffd6cc;text-decoration:none;font-weight:700}
-.api-help a:hover{text-decoration:underline}
 
-#phase-upload{flex-direction:column;align-items:center;justify-content:center;min-height:calc(100vh - 72px);padding:40px 20px;gap:32px}
+/* UPLOAD */
+#phase-upload{flex-direction:column;align-items:center;justify-content:center;min-height:calc(100vh - 60px);padding:40px 20px;gap:28px}
 .logo{text-align:center}
-.logo h1{font-family:'Playfair Display',serif;font-size:2.2rem;color:var(--ink);letter-spacing:-0.5px}
-.logo p{color:var(--muted);font-size:0.95rem;margin-top:6px;font-weight:300}
-.groq-badge{display:inline-flex;align-items:center;gap:6px;background:#fff0ee;color:#f55036;padding:5px 14px;border-radius:20px;font-size:0.78rem;font-weight:700;margin-top:10px;border:1px solid #ffd6cc}
-
-.upload-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;width:100%;max-width:760px}
-@media(max-width:600px){.upload-grid{grid-template-columns:1fr}}
-
-.drop-zone{background:var(--surface);border:2px dashed var(--border);border-radius:16px;padding:36px 24px;text-align:center;cursor:pointer;transition:all .2s;position:relative}
+.logo h1{font-family:'Playfair Display',serif;font-size:2rem;color:var(--ink)}
+.logo p{color:var(--muted);font-size:0.92rem;margin-top:5px;font-weight:300}
+.badge{display:inline-flex;align-items:center;gap:6px;padding:4px 12px;border-radius:20px;font-size:0.75rem;font-weight:700;margin-top:8px}
+.badge-groq{background:#fff0ee;color:#f55036;border:1px solid #ffd6cc}
+.upload-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;width:100%;max-width:720px}
+@media(max-width:580px){.upload-grid{grid-template-columns:1fr}}
+.drop-zone{background:var(--surface);border:2px dashed var(--border);border-radius:14px;padding:32px 20px;text-align:center;cursor:pointer;transition:all .2s;position:relative}
 .drop-zone:hover,.drop-zone.drag-over{border-color:var(--accent);background:#fff5f3}
 .drop-zone.has-file{border-style:solid;border-color:var(--green);background:var(--green-bg)}
 .drop-zone input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
-.dz-icon{font-size:2rem;margin-bottom:10px}
-.dz-label{font-size:0.78rem;text-transform:uppercase;letter-spacing:1px;color:var(--muted);font-weight:600;margin-bottom:8px}
-.dz-title{font-weight:600;font-size:1rem;color:var(--ink);margin-bottom:6px}
-.dz-sub{font-size:0.82rem;color:var(--muted)}
-.dz-filename{font-size:0.82rem;color:var(--green);font-weight:500;margin-top:8px;font-family:'IBM Plex Mono',monospace;word-break:break-all}
-
-.compare-btn{background:var(--ink);color:#fff;border:none;padding:16px 48px;border-radius:10px;font-size:1rem;font-weight:600;cursor:pointer;transition:all .2s}
-.compare-btn:hover:not(:disabled){background:#f55036;transform:translateY(-1px);box-shadow:0 4px 20px rgba(245,80,54,0.35)}
+.dz-icon{font-size:1.8rem;margin-bottom:8px}
+.dz-label{font-size:0.72rem;text-transform:uppercase;letter-spacing:1px;color:var(--muted);font-weight:600;margin-bottom:6px}
+.dz-title{font-weight:600;font-size:0.95rem;color:var(--ink);margin-bottom:4px}
+.dz-sub{font-size:0.78rem;color:var(--muted)}
+.dz-filename{font-size:0.78rem;color:var(--green);font-weight:500;margin-top:6px;font-family:'IBM Plex Mono',monospace;word-break:break-all}
+.compare-btn{background:var(--ink);color:#fff;border:none;padding:14px 44px;border-radius:10px;font-size:0.95rem;font-weight:600;cursor:pointer;transition:all .2s}
+.compare-btn:hover:not(:disabled){background:#f55036;transform:translateY(-1px);box-shadow:0 4px 18px rgba(245,80,54,.3)}
 .compare-btn:disabled{opacity:0.35;cursor:not-allowed}
 
-#phase-process{flex-direction:column;align-items:center;justify-content:center;min-height:calc(100vh - 72px);gap:24px}
-.proc-icon{font-size:3rem;animation:spin 2s linear infinite}
+/* PROCESSING */
+#phase-process{flex-direction:column;align-items:center;justify-content:center;min-height:calc(100vh - 60px);gap:20px}
+.proc-icon{font-size:2.8rem;animation:spin 2s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
-.proc-title{font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--ink)}
-.proc-steps{display:flex;flex-direction:column;gap:10px;width:100%;max-width:420px}
-.proc-step{display:flex;align-items:center;gap:12px;padding:12px 16px;background:var(--surface);border-radius:10px;border:1px solid var(--border)}
-.proc-step .step-icon{font-size:1.2rem;width:28px;text-align:center}
-.proc-step .step-text{font-size:0.88rem;color:var(--ink2)}
-.proc-step.done .step-icon{visibility:hidden}
+.proc-title{font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--ink)}
+.proc-steps{display:flex;flex-direction:column;gap:8px;width:100%;max-width:400px}
+.proc-step{display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--surface);border-radius:10px;border:1px solid var(--border);font-size:0.85rem;color:var(--ink2)}
+.proc-step .step-icon{width:24px;text-align:center}
 .proc-step.active{border-color:#f55036;background:#fff5f3}
 .proc-step.active .step-icon{animation:pulse 1s infinite}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.3}}
 
+/* REPORT */
 #phase-report{flex-direction:column;min-height:100vh}
-.report-header{background:var(--ink);color:#fff;padding:28px 40px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}
-.rh-left h2{font-family:'Playfair Display',serif;font-size:1.5rem}
-.rh-left p{font-size:0.82rem;color:#94a3b8;margin-top:4px}
-.rh-right{display:flex;gap:10px;flex-wrap:wrap}
-.badge{display:flex;align-items:center;gap:6px;padding:8px 14px;border-radius:8px;font-size:0.82rem;font-weight:600}
-.badge-red{background:rgba(220,38,38,0.25);color:#fca5a5}
-.badge-purple{background:rgba(124,58,237,0.25);color:#c4b5fd}
-.badge-green{background:rgba(22,163,74,0.25);color:#86efac}
-.badge-amber{background:rgba(180,83,9,0.25);color:#fcd34d}
-.print-btn,.new-compare-btn{border:1px solid rgba(255,255,255,0.2);background:transparent;color:#fff;padding:9px 18px;border-radius:8px;font-size:0.82rem;cursor:pointer;transition:all .2s;font-weight:500}
-.print-btn:hover,.new-compare-btn:hover{background:rgba(255,255,255,0.1)}
+.report-header{background:var(--ink);color:#fff;padding:22px 32px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px}
+.rh-left h2{font-family:'Playfair Display',serif;font-size:1.35rem}
+.rh-left p{font-size:0.78rem;color:#94a3b8;margin-top:3px}
+.rh-right{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.stat-badge{padding:6px 12px;border-radius:8px;font-size:0.78rem;font-weight:600}
+.sb-red{background:rgba(220,38,38,.25);color:#fca5a5}
+.sb-purple{background:rgba(124,58,237,.25);color:#c4b5fd}
+.sb-green{background:rgba(22,163,74,.25);color:#86efac}
+.sb-amber{background:rgba(180,83,9,.25);color:#fcd34d}
+.hdr-btn{border:1px solid rgba(255,255,255,.2);background:transparent;color:#fff;padding:7px 14px;border-radius:8px;font-size:0.78rem;cursor:pointer;transition:all .2s;font-weight:500}
+.hdr-btn:hover{background:rgba(255,255,255,.1)}
 
-.report-body{max-width:920px;margin:0 auto;padding:32px 24px;width:100%;display:flex;flex-direction:column;gap:28px}
-.summary-card{background:var(--surface);border-radius:14px;border:1px solid var(--border);overflow:hidden}
-.sc-header{background:var(--ink2);color:#fff;padding:14px 20px;display:flex;align-items:center;gap:10px;font-weight:600;font-size:0.9rem}
-.sc-body{padding:20px;line-height:1.75;font-size:0.92rem;color:var(--ink2)}
-.date-issue-card{background:var(--amber-bg);border:1px solid var(--amber-border);border-left:4px solid var(--amber);border-radius:10px;padding:16px 20px;margin-bottom:12px}
-.di-title{font-weight:600;font-size:0.88rem;color:var(--amber);margin-bottom:6px}
-.di-body{font-size:0.85rem;color:var(--ink2);line-height:1.6}
-.di-values{display:flex;gap:16px;margin-top:10px;flex-wrap:wrap}
-.di-val{font-family:'IBM Plex Mono',monospace;font-size:0.8rem;padding:4px 10px;border-radius:6px}
+.report-body{max-width:960px;margin:0 auto;padding:28px 20px;width:100%;display:flex;flex-direction:column;gap:24px}
+
+/* SUMMARY */
+.summary-card{background:var(--surface);border-radius:12px;border:1px solid var(--border);overflow:hidden}
+.sc-header{background:var(--ink2);color:#fff;padding:12px 18px;font-weight:600;font-size:0.88rem;display:flex;align-items:center;gap:8px}
+.sc-body{padding:18px;line-height:1.75;font-size:0.9rem;color:var(--ink2)}
+
+/* LEGEND BAR */
+.legend-bar{display:flex;gap:20px;flex-wrap:wrap;padding:14px 18px;background:var(--surface);border-radius:12px;border:1px solid var(--border);align-items:center}
+.leg-item{display:flex;align-items:center;gap:8px;font-size:0.8rem;color:var(--ink2)}
+.leg-swatch{width:28px;height:16px;border-radius:4px;border:2px solid;flex-shrink:0}
+.leg-mod{background:rgba(220,38,38,.15);border-color:#dc2626}
+.leg-del{background:rgba(124,58,237,.15);border-color:#7c3aed}
+.leg-add{background:rgba(22,163,74,.15);border-color:#16a34a}
+.leg-date{background:rgba(180,83,9,.15);border-color:#b45309}
+
+/* DATE ISSUES */
+.date-issue{background:var(--amber-bg);border:1px solid var(--amber-border);border-left:4px solid var(--amber);border-radius:10px;padding:14px 18px}
+.di-title{font-weight:600;font-size:0.85rem;color:var(--amber);margin-bottom:4px}
+.di-body{font-size:0.83rem;color:var(--ink2);line-height:1.6}
+.di-vals{display:flex;gap:14px;margin-top:8px;flex-wrap:wrap}
+.di-val{font-family:'IBM Plex Mono',monospace;font-size:0.78rem;padding:3px 9px;border-radius:6px}
 .di-val.old{background:var(--purple-bg);color:var(--purple);border:1px solid var(--purple-border)}
 .di-val.new{background:var(--green-bg);color:var(--green);border:1px solid var(--green-border)}
-.section-label{font-size:0.75rem;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);font-weight:600;padding-left:4px}
-.change-card{background:var(--surface);border-radius:14px;border:1px solid var(--border);overflow:hidden;margin-bottom:14px}
-.cc-header{padding:14px 20px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border)}
-.cc-page{font-size:0.78rem;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:1px}
-.cc-type{font-size:0.78rem;font-weight:700;padding:4px 12px;border-radius:20px;text-transform:uppercase;letter-spacing:0.5px}
-.type-modified{background:var(--red-bg);color:var(--red);border:1px solid var(--red-border)}
-.type-deleted{background:var(--purple-bg);color:var(--purple);border:1px solid var(--purple-border)}
-.type-added{background:var(--green-bg);color:var(--green);border:1px solid var(--green-border)}
-.cc-body{padding:20px;display:flex;flex-direction:column;gap:14px}
-.diff-block{border-radius:10px;padding:14px 16px}
-.diff-old{background:var(--purple-bg);border:2px solid var(--purple);color:var(--purple);font-size:0.87rem;line-height:1.7;text-decoration:line-through;font-family:'IBM Plex Mono',monospace}
-.diff-new-mod{background:var(--red-bg);border:2px solid var(--red);font-size:0.87rem;line-height:1.7;font-family:'IBM Plex Mono',monospace;color:var(--ink)}
-.diff-new-add{background:var(--green-bg);border:2px solid var(--green);color:var(--green);font-size:0.87rem;line-height:1.7;font-family:'IBM Plex Mono',monospace}
-.diff-label{font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;opacity:0.65}
-.cc-arrow{text-align:center;font-size:1.2rem;color:var(--muted)}
-.cc-desc{font-size:0.85rem;color:var(--ink2);line-height:1.6;padding:12px 16px;background:#f8f7f3;border-radius:8px;border-left:3px solid var(--border)}
-.legend{display:flex;gap:16px;flex-wrap:wrap;padding:16px 20px;background:var(--surface);border-radius:12px;border:1px solid var(--border);align-items:center}
-.leg-item{display:flex;align-items:center;gap:8px;font-size:0.8rem;color:var(--ink2)}
-.leg-dot{width:14px;height:14px;border-radius:4px;border:2px solid;flex-shrink:0}
-.leg-red{background:var(--red-bg);border-color:var(--red)}
-.leg-purple{background:var(--purple-bg);border-color:var(--purple)}
-.leg-green{background:var(--green-bg);border-color:var(--green)}
-.no-changes{text-align:center;padding:48px;color:var(--muted);font-size:0.95rem}
+
+/* PDF VIEWER */
+.pdf-section-title{font-size:0.72rem;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);font-weight:600}
+.pdf-pages{display:flex;flex-direction:column;gap:24px}
+.pdf-page-wrap{background:var(--surface);border-radius:12px;border:1px solid var(--border);overflow:hidden}
+.pdf-page-header{padding:10px 16px;background:#f8f7f3;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.pdf-page-num{font-size:0.75rem;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:1px}
+.pdf-page-changes{display:flex;gap:6px;flex-wrap:wrap}
+.pc-tag{font-size:0.7rem;font-weight:700;padding:2px 8px;border-radius:10px}
+.pc-mod{background:var(--red-bg);color:var(--red);border:1px solid var(--red-border)}
+.pc-del{background:var(--purple-bg);color:var(--purple);border:1px solid var(--purple-border)}
+.pc-add{background:var(--green-bg);color:var(--green);border:1px solid var(--green-border)}
+.pc-date{background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-border)}
+.pdf-canvas-wrap{overflow-x:auto;display:flex;justify-content:center;padding:12px;background:#e8e6e0}
+.pdf-canvas-wrap canvas{max-width:100%;box-shadow:0 2px 12px rgba(0,0,0,.15)}
+.pdf-change-list{padding:12px 16px;display:flex;flex-direction:column;gap:8px;border-top:1px solid var(--border)}
+.pcl-item{font-size:0.82rem;color:var(--ink2);padding:8px 12px;border-radius:8px;border-left:3px solid;line-height:1.5}
+.pcl-mod{background:var(--red-bg);border-color:var(--red)}
+.pcl-del{background:var(--purple-bg);border-color:var(--purple)}
+.pcl-add{background:var(--green-bg);border-color:var(--green)}
+.pcl-type{font-weight:700;text-transform:uppercase;font-size:0.68rem;letter-spacing:0.5px;margin-bottom:3px}
+.pcl-mod .pcl-type{color:var(--red)}
+.pcl-del .pcl-type{color:var(--purple)}
+.pcl-add .pcl-type{color:var(--green)}
+
+.rendering-note{text-align:center;padding:12px;color:var(--muted);font-size:0.82rem;font-style:italic}
 @media print{#api-banner{display:none!important}.rh-right button{display:none}}
 </style>
 </head>
@@ -130,10 +143,10 @@ body{font-family:'IBM Plex Sans',sans-serif;background:var(--bg);color:var(--ink
 
 <div id="api-banner">
   <div class="api-banner-left">
-    <span style="font-size:1.5rem">⚡</span>
+    <span style="font-size:1.3rem">⚡</span>
     <div>
-      <div style="font-weight:700">Groq API Key required &nbsp;<span style="background:rgba(255,255,255,0.2);padding:2px 10px;border-radius:10px;font-size:0.75rem">FREE · Works in India · 14,400 req/day</span></div>
-      <div class="api-help">Get your free key → <a href="https://console.groq.com/keys" target="_blank">console.groq.com/keys</a> → Sign in with Google → Create API Key. No credit card needed.</div>
+      <div style="font-weight:700">Groq API Key &nbsp;<span style="background:rgba(255,255,255,.2);padding:2px 8px;border-radius:10px;font-size:0.72rem">FREE · Works in India</span></div>
+      <div style="font-size:0.73rem;color:rgba(255,255,255,.6);margin-top:2px">Get free key → <a href="https://console.groq.com/keys" target="_blank">console.groq.com/keys</a> → Sign in with Google → Create API Key</div>
     </div>
   </div>
   <div class="api-input-wrap">
@@ -143,11 +156,12 @@ body{font-family:'IBM Plex Sans',sans-serif;background:var(--bg);color:var(--ink
   </div>
 </div>
 
+<!-- UPLOAD -->
 <div id="phase-upload" class="phase active">
   <div class="logo">
     <h1>📄 Document Comparison Engine</h1>
-    <p>AI-powered PDF diff — changes, deletions, additions & smart date validation</p>
-    <div><span class="groq-badge">⚡ Powered by Groq + Llama 3.1 — Free in India</span></div>
+    <p>Renders your new PDF with changes marked directly on the pages</p>
+    <span class="badge badge-groq">⚡ Groq + Llama 3.1 — Free in India</span>
   </div>
   <div class="upload-grid">
     <div class="drop-zone" id="dz1" onclick="document.getElementById('f1').click()">
@@ -167,33 +181,35 @@ body{font-family:'IBM Plex Sans',sans-serif;background:var(--bg);color:var(--ink
       <div class="dz-filename" id="fn2"></div>
     </div>
   </div>
-  <button class="compare-btn" id="compareBtn" disabled onclick="startComparison()">🔍 Compare Documents</button>
+  <button class="compare-btn" id="compareBtn" disabled onclick="startComparison()">🔍 Compare &amp; Annotate</button>
 </div>
 
+<!-- PROCESSING -->
 <div id="phase-process" class="phase">
   <div class="proc-icon">⚙️</div>
-  <div class="proc-title">Analyzing Documents…</div>
+  <div class="proc-title">Analyzing &amp; Annotating…</div>
   <div class="proc-steps">
-    <div class="proc-step active" id="step1"><span class="step-icon">📖</span><span class="step-text">Extracting text from PDF A…</span></div>
-    <div class="proc-step" id="step2"><span class="step-icon">📖</span><span class="step-text">Extracting text from PDF B…</span></div>
-    <div class="proc-step" id="step3"><span class="step-icon">🤖</span><span class="step-text">Groq AI comparing both documents…</span></div>
-    <div class="proc-step" id="step4"><span class="step-icon">📋</span><span class="step-text">Generating comparison report…</span></div>
+    <div class="proc-step active" id="step1"><span class="step-icon">📖</span> Extracting text from both PDFs…</div>
+    <div class="proc-step" id="step2"><span class="step-icon">🤖</span> AI comparing documents…</div>
+    <div class="proc-step" id="step3"><span class="step-icon">🎨</span> Rendering annotated pages…</div>
+    <div class="proc-step" id="step4"><span class="step-icon">✅</span> Building report…</div>
   </div>
 </div>
 
+<!-- REPORT -->
 <div id="phase-report" class="phase">
   <div class="report-header">
     <div class="rh-left">
-      <h2>Comparison Report</h2>
+      <h2>Annotated Comparison Report</h2>
       <p id="rh-subtitle"></p>
     </div>
     <div class="rh-right">
-      <div class="badge badge-red" id="badge-mod">🔴 0 Modified</div>
-      <div class="badge badge-purple" id="badge-del">🟣 0 Deleted</div>
-      <div class="badge badge-green" id="badge-add">🟢 0 Added</div>
-      <div class="badge badge-amber" id="badge-date" style="display:none">⚠️ Date Issues</div>
-      <button class="print-btn" onclick="window.print()">🖨️ Print</button>
-      <button class="new-compare-btn" onclick="resetApp()">↩ New Compare</button>
+      <span class="stat-badge sb-red" id="badge-mod">🔴 0 Modified</span>
+      <span class="stat-badge sb-purple" id="badge-del">🟣 0 Deleted</span>
+      <span class="stat-badge sb-green" id="badge-add">🟢 0 Added</span>
+      <span class="stat-badge sb-amber" id="badge-date" style="display:none">⚠️ Date Issues</span>
+      <button class="hdr-btn" onclick="window.print()">🖨️ Print</button>
+      <button class="hdr-btn" onclick="resetApp()">↩ New</button>
     </div>
   </div>
   <div class="report-body" id="reportBody"></div>
@@ -204,27 +220,20 @@ pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/p
 let files={1:null,2:null},names={1:'',2:''},apiKey='';
 
 function saveApiKey(){
-  const val=document.getElementById('apiKeyInput').value.trim();
-  if(!val||val.length<10){alert('Please enter a valid Groq API key (starts with gsk_...)');return;}
-  apiKey=val;
-  const st=document.getElementById('apiStatus');
-  st.textContent='✓ Set';st.className='api-status set';
-  updateCompareBtn();
+  const v=document.getElementById('apiKeyInput').value.trim();
+  if(!v||v.length<10){alert('Please enter a valid Groq API key (starts with gsk_)');return;}
+  apiKey=v;
+  const s=document.getElementById('apiStatus');s.textContent='✓ Set';s.className='api-status set';
+  updateBtn();
 }
-
-function updateCompareBtn(){
-  document.getElementById('compareBtn').disabled=!(files[1]&&files[2]&&apiKey);
-}
-
+function updateBtn(){document.getElementById('compareBtn').disabled=!(files[1]&&files[2]&&apiKey);}
 function handleFile(input,num){
   const f=input.files[0];if(!f)return;
   files[num]=f;names[num]=f.name;
   document.getElementById('fn'+num).textContent='✓ '+f.name;
   document.getElementById('dz'+num).classList.add('has-file');
-  input.onclick=e=>e.stopPropagation();
-  updateCompareBtn();
+  input.onclick=e=>e.stopPropagation();updateBtn();
 }
-
 ['dz1','dz2'].forEach((id,i)=>{
   const el=document.getElementById(id);
   el.addEventListener('dragover',e=>{e.preventDefault();el.classList.add('drag-over');});
@@ -233,25 +242,16 @@ function handleFile(input,num){
     e.preventDefault();el.classList.remove('drag-over');
     const f=e.dataTransfer.files[0];
     if(f&&f.type==='application/pdf'){
-      const num=String(i+1);files[num]=f;names[num]=f.name;
-      document.getElementById('fn'+num).textContent='✓ '+f.name;
-      el.classList.add('has-file');updateCompareBtn();
+      const n=String(i+1);files[n]=f;names[n]=f.name;
+      document.getElementById('fn'+n).textContent='✓ '+f.name;
+      document.getElementById(id).classList.add('has-file');updateBtn();
     }
   });
 });
-
 function showPhase(id){document.querySelectorAll('.phase').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');}
+function setStep(n){for(let i=1;i<=4;i++){const s=document.getElementById('step'+i);s.classList.remove('active');if(i===n)s.classList.add('active');}}
 
-function setStep(n){
-  for(let i=1;i<=4;i++){
-    const s=document.getElementById('step'+i);
-    s.classList.remove('active','done');
-    if(i<n)s.classList.add('done');
-    if(i===n)s.classList.add('active');
-  }
-}
-
-async function extractText(file){
+async function extractPages(file){
   const ab=await file.arrayBuffer();
   const pdf=await pdfjsLib.getDocument({data:ab}).promise;
   const pages=[];
@@ -267,49 +267,37 @@ async function startComparison(){
   if(!apiKey){alert('Please enter your Groq API key first.');return;}
   showPhase('phase-process');
   try{
-    setStep(1);const pages1=await extractText(files[1]);
-    setStep(2);const pages2=await extractText(files[2]);
-    setStep(3);const result=await callGroq(pages1,pages2);
-    setStep(4);await new Promise(r=>setTimeout(r,500));
-    renderReport(result);showPhase('phase-report');
+    setStep(1);
+    const pages1=await extractPages(files[1]);
+    const pages2=await extractPages(files[2]);
+    setStep(2);
+    const result=await callGroq(pages1,pages2);
+    setStep(3);
+    await renderReport(result,files[2]);
+    setStep(4);
+    await new Promise(r=>setTimeout(r,400));
+    showPhase('phase-report');
   }catch(err){alert('Error: '+err.message);showPhase('phase-upload');}
 }
 
 async function callGroq(pages1,pages2){
-  const fmt=pages=>pages.map(p=>`--- Page ${p.pageNum} ---\n${p.text||'[empty]'}`).join('\n\n');
-  const maxChars=4000;
-  let doc1=fmt(pages1),doc2=fmt(pages2);
-  if(doc1.length>maxChars)doc1=doc1.slice(0,maxChars)+'\n[truncated]';
-  if(doc2.length>maxChars)doc2=doc2.slice(0,maxChars)+'\n[truncated]';
+  const fmt=pages=>pages.map(p=>`[P${p.pageNum}] ${p.text}`).join('\n').slice(0,4000);
+  const doc1=fmt(pages1), doc2=fmt(pages2);
 
-  const prompt=`You are an expert document auditor. Compare these two PDF documents and identify ALL differences.
+  const prompt=`Compare Document A (old) and Document B (new). Find all differences.
 
-DOCUMENT A (Old/Original) — "${names[1]}":
-${doc1}
+DOC A: ${doc1}
 
-DOCUMENT B (New/Updated) — "${names[2]}":
-${doc2}
+DOC B: ${doc2}
 
-Instructions:
-1. Find VAO dates (Validity Applicable On / VAO) — check consistency across pages and between docs
-2. Find WEF dates (With Effect From / WEF) — same check
-3. List every modification, deletion, and addition with exact text
-4. Write a detailed plain-English summary of all changes
+Rules:
+- Find VAO dates (Validity Applicable On) and WEF dates (With Effect From) — flag mismatches
+- Find every change: modified text, deleted text, added text
+- For each change include the EXACT short text snippet (max 30 chars) from Doc B that should be highlighted
+- Keep descriptions brief
 
-Return ONLY a valid JSON object. No explanation, no markdown, no text before or after the JSON.
-Use exactly this structure:
-{
-  "summary": "plain English summary of all changes",
-  "stats": {"modified": 0, "deleted": 0, "added": 0},
-  "date_issues": [
-    {"type": "WEF", "page_a": 1, "page_b": 1, "value_in_a": "date", "value_in_b": "date", "message": "explanation"}
-  ],
-  "changes": [
-    {"page_a": 1, "page_b": 1, "type": "modified", "old_text": "old", "new_text": "new", "description": "why"},
-    {"page_a": 2, "page_b": null, "type": "deleted", "old_text": "removed", "new_text": "", "description": "why"},
-    {"page_a": null, "page_b": 3, "type": "added", "old_text": "", "new_text": "added", "description": "why"}
-  ]
-}`;
+Return ONLY this JSON (no markdown, nothing else):
+{"summary":"brief summary of all changes","stats":{"modified":0,"deleted":0,"added":0},"date_issues":[{"type":"VAO","page_a":1,"page_b":1,"value_in_a":"date","value_in_b":"date","message":"explanation"}],"changes":[{"page_b":1,"type":"modified","highlight_text":"exact text in doc B to highlight max 30 chars","description":"what changed"},{"page_b":2,"type":"deleted","highlight_text":"","description":"what was removed"},{"page_b":3,"type":"added","highlight_text":"exact new text max 30 chars","description":"what was added"}]}`;
 
   const resp=await fetch('https://api.groq.com/openai/v1/chat/completions',{
     method:'POST',
@@ -317,35 +305,24 @@ Use exactly this structure:
     body:JSON.stringify({
       model:'llama-3.1-8b-instant',
       messages:[
-        {role:'system',content:'You are an expert document auditor. Always respond with valid JSON only. No markdown, no explanations outside the JSON.'},
+        {role:'system',content:'You are a document auditor. Respond ONLY with valid JSON. No markdown. No explanation outside JSON.'},
         {role:'user',content:prompt}
       ],
-      temperature:0.1,
-      max_tokens:2000,
+      temperature:0.1,max_tokens:2000,
       response_format:{type:'json_object'}
     })
   });
-
-  if(!resp.ok){
-    const err=await resp.json();
-    throw new Error('Groq API error: '+(err?.error?.message||resp.statusText));
-  }
+  if(!resp.ok){const e=await resp.json();throw new Error('Groq error: '+(e?.error?.message||resp.statusText));}
   const data=await resp.json();
-  const text=data?.choices?.[0]?.message?.content||'';
-  const clean=text.replace(/```json|```/g,'').trim();
-  try{return JSON.parse(clean);}
-  catch(e){
-    const match=clean.match(/\{[\s\S]*\}/);
-    if(match)return JSON.parse(match[0]);
-    throw new Error('Could not parse AI response. Please try again.');
-  }
+  const text=data?.choices?.[0]?.message?.content||'{}';
+  try{return JSON.parse(text.replace(/```json|```/g,'').trim());}
+  catch(e){const m=text.match(/\{[\s\S]*\}/);if(m)return JSON.parse(m[0]);throw new Error('Could not parse AI response');}
 }
 
-function esc(s){if(!s)return '';return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
-
-function renderReport(result){
-  const now=new Date().toLocaleDateString('en-IN',{day:'2-digit',month:'long',year:'numeric',hour:'2-digit',minute:'2-digit'});
-  document.getElementById('rh-subtitle').textContent=`${names[1]}  →  ${names[2]}  |  ${now}`;
+// ── RENDER ANNOTATED PDF ──
+async function renderReport(result, pdfFile){
+  const now=new Date().toLocaleDateString('en-IN',{day:'2-digit',month:'long',year:'numeric'});
+  document.getElementById('rh-subtitle').textContent=`${names[1]} → ${names[2]} | ${now}`;
   const stats=result.stats||{modified:0,deleted:0,added:0};
   document.getElementById('badge-mod').innerHTML=`🔴 ${stats.modified||0} Modified`;
   document.getElementById('badge-del').innerHTML=`🟣 ${stats.deleted||0} Deleted`;
@@ -356,49 +333,184 @@ function renderReport(result){
     document.getElementById('badge-date').innerHTML=`⚠️ ${dateIssues.length} Date Issue${dateIssues.length>1?'s':''}`;
   }
 
-  let html='';
-  html+=`<div class="legend"><span style="font-size:0.75rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px">Legend:</span><div class="leg-item"><div class="leg-dot leg-red"></div>Modified</div><div class="leg-item"><div class="leg-dot leg-purple"></div>Deleted</div><div class="leg-item"><div class="leg-dot leg-green"></div>Added</div></div>`;
-  html+=`<div class="summary-card"><div class="sc-header">📋 &nbsp;AI Summary of Changes</div><div class="sc-body">${esc(result.summary||'No summary available.')}</div></div>`;
+  const body=document.getElementById('reportBody');
+  body.innerHTML='';
 
-  const dc = null;
-  if(dc){
-    const hv=(dc.vao_dates_doc_a||[]).length||(dc.vao_dates_doc_b||[]).length;
-    const hw=(dc.wef_dates_doc_a||[]).length||(dc.wef_dates_doc_b||[]).length;
-    if(hv||hw){
-      html+=`<div class="summary-card"><div class="sc-header">📅 &nbsp;Date Analysis</div><div class="sc-body" style="display:flex;gap:32px;flex-wrap:wrap">
-        ${hv?`<div><strong>VAO Dates</strong><br>Doc A: <code style="background:#f1f5f9;padding:2px 6px;border-radius:4px">${(dc.vao_dates_doc_a||[]).join(', ')||'none found'}</code><br>Doc B: <code style="background:#f1f5f9;padding:2px 6px;border-radius:4px">${(dc.vao_dates_doc_b||[]).join(', ')||'none found'}</code><br><span style="color:${dc.vao_consistent_within_a&&dc.vao_consistent_within_b?'var(--green)':'var(--red)'}">${dc.vao_consistent_within_a&&dc.vao_consistent_within_b?'✅ Consistent':'❌ Inconsistency detected'}</span></div>`:''}
-        ${hw?`<div><strong>WEF Dates</strong><br>Doc A: <code style="background:#f1f5f9;padding:2px 6px;border-radius:4px">${(dc.wef_dates_doc_a||[]).join(', ')||'none found'}</code><br>Doc B: <code style="background:#f1f5f9;padding:2px 6px;border-radius:4px">${(dc.wef_dates_doc_b||[]).join(', ')||'none found'}</code><br><span style="color:${dc.wef_consistent_within_a&&dc.wef_consistent_within_b?'var(--green)':'var(--red)'}">${dc.wef_consistent_within_a&&dc.wef_consistent_within_b?'✅ Consistent':'❌ Inconsistency detected'}</span></div>`:''}
-      </div></div>`;
+  // Legend
+  const leg=document.createElement('div');leg.className='legend-bar';
+  leg.innerHTML=`<span style="font-size:0.72rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px">Legend:</span>
+    <div class="leg-item"><div class="leg-swatch leg-mod"></div>Modified</div>
+    <div class="leg-item"><div class="leg-swatch leg-del"></div>Deleted reference</div>
+    <div class="leg-item"><div class="leg-swatch leg-add"></div>Added</div>
+    <div class="leg-item"><div class="leg-swatch leg-date"></div>Date issue</div>`;
+  body.appendChild(leg);
+
+  // Summary
+  const sumCard=document.createElement('div');sumCard.className='summary-card';
+  sumCard.innerHTML=`<div class="sc-header">📋 AI Summary of Changes</div><div class="sc-body">${esc(result.summary||'No summary available.')}</div>`;
+  body.appendChild(sumCard);
+
+  // Date issues
+  if(dateIssues.length){
+    const dtitle=document.createElement('div');dtitle.className='pdf-section-title';dtitle.textContent='⚠️ Date Issues';
+    body.appendChild(dtitle);
+    dateIssues.forEach(issue=>{
+      const d=document.createElement('div');d.className='date-issue';
+      d.innerHTML=`<div class="di-title">⚠️ ${esc(issue.type)} Mismatch — Page ${issue.page_a||'?'} (Doc A) / Page ${issue.page_b||'?'} (Doc B)</div>
+        <div class="di-body">${esc(issue.message)}</div>
+        <div class="di-vals">
+          ${issue.value_in_a?`<span class="di-val old">Doc A: ${esc(issue.value_in_a)}</span>`:''}
+          ${issue.value_in_b?`<span class="di-val new">Doc B: ${esc(issue.value_in_b)}</span>`:''}
+        </div>`;
+      body.appendChild(d);
+    });
+  }
+
+  // Annotated PDF pages
+  const ptitle=document.createElement('div');ptitle.className='pdf-section-title';
+  ptitle.textContent=`📄 Annotated Document B — ${names[2]}`;
+  body.appendChild(ptitle);
+
+  const note=document.createElement('div');note.className='rendering-note';
+  note.textContent='Rendering PDF pages with changes highlighted…';
+  body.appendChild(note);
+
+  // Load PDF B
+  const ab=await pdfFile.arrayBuffer();
+  const pdf=await pdfjsLib.getDocument({data:ab}).promise;
+  const changes=result.changes||[];
+  const pagesWrap=document.createElement('div');pagesWrap.className='pdf-pages';
+  body.appendChild(pagesWrap);
+  note.remove();
+
+  const scale=1.6;
+
+  for(let pNum=1;pNum<=pdf.numPages;pNum++){
+    const page=await pdf.getPage(pNum);
+    const viewport=page.getViewport({scale});
+    const canvas=document.createElement('canvas');
+    canvas.width=viewport.width;canvas.height=viewport.height;
+    const ctx=canvas.getContext('2d');
+    await page.render({canvasContext:ctx,viewport}).promise;
+
+    // Get text content for this page
+    const textContent=await page.getTextContent();
+
+    // Find changes for this page
+    const pageChanges=changes.filter(c=>c.page_b===pNum);
+    // Also date issues
+    const pageDateIssues=dateIssues.filter(d=>d.page_b===pNum);
+
+    // Draw highlights on canvas
+    for(const change of pageChanges){
+      const txt=change.highlight_text||'';
+      if(!txt||txt.length<3)continue;
+      const color=change.type==='modified'?{r:220,g:38,b:38}:change.type==='deleted'?{r:124,g:58,b:237}:{r:22,g:163,b:74};
+      drawTextHighlight(ctx,textContent,txt,viewport,color);
+    }
+    for(const di of pageDateIssues){
+      const txt=di.value_in_b||di.value_in_a||'';
+      if(txt.length>2) drawTextHighlight(ctx,textContent,txt,viewport,{r:180,g:83,b:9});
+    }
+
+    // Build page wrapper
+    const wrap=document.createElement('div');wrap.className='pdf-page-wrap';
+
+    // Page header
+    const hdr=document.createElement('div');hdr.className='pdf-page-header';
+    const pnLabel=document.createElement('span');pnLabel.className='pdf-page-num';pnLabel.textContent='Page '+pNum;
+    hdr.appendChild(pnLabel);
+    if(pageChanges.length||pageDateIssues.length){
+      const tags=document.createElement('div');tags.className='pdf-page-changes';
+      const mods=pageChanges.filter(c=>c.type==='modified').length;
+      const dels=pageChanges.filter(c=>c.type==='deleted').length;
+      const adds=pageChanges.filter(c=>c.type==='added').length;
+      if(mods)tags.innerHTML+=`<span class="pc-tag pc-mod">🔴 ${mods} Modified</span>`;
+      if(dels)tags.innerHTML+=`<span class="pc-tag pc-del">🟣 ${dels} Deleted</span>`;
+      if(adds)tags.innerHTML+=`<span class="pc-tag pc-add">🟢 ${adds} Added</span>`;
+      if(pageDateIssues.length)tags.innerHTML+=`<span class="pc-tag pc-date">⚠️ Date</span>`;
+      hdr.appendChild(tags);
+    }
+    wrap.appendChild(hdr);
+
+    // Canvas
+    const cWrap=document.createElement('div');cWrap.className='pdf-canvas-wrap';
+    cWrap.appendChild(canvas);wrap.appendChild(cWrap);
+
+    // Change details below page
+    if(pageChanges.length){
+      const cList=document.createElement('div');cList.className='pdf-change-list';
+      pageChanges.forEach(c=>{
+        const item=document.createElement('div');
+        item.className='pcl-item pcl-'+(c.type==='modified'?'mod':c.type==='deleted'?'del':'add');
+        item.innerHTML=`<div class="pcl-type">${c.type==='modified'?'🔴 Modified':c.type==='deleted'?'🟣 Deleted':'🟢 Added'}</div>${esc(c.description||'')}`;
+        cList.appendChild(item);
+      });
+      wrap.appendChild(cList);
+    }
+
+    pagesWrap.appendChild(wrap);
+  }
+}
+
+function drawTextHighlight(ctx,textContent,searchText,viewport,color){
+  if(!searchText||searchText.length<3)return;
+
+  // Normalize search — take first 25 chars
+  const needle=searchText.trim().toLowerCase().replace(/\s+/g,' ').slice(0,25);
+  const items=textContent.items;
+
+  // Build concatenated string and map to items
+  let full='';
+  const map=[];
+  for(const item of items){
+    const s=item.str||'';
+    map.push({start:full.length,end:full.length+s.length,item});
+    full+=s+' ';
+  }
+
+  const haystack=full.toLowerCase().replace(/\s+/g,' ');
+  const idx=haystack.indexOf(needle.slice(0,20));
+  if(idx===-1)return;
+
+  // Find matching items
+  const matchItems=map.filter(m=>m.end>idx&&m.start<idx+needle.length);
+  if(!matchItems.length)return;
+
+  // Compute bounding box in viewport space
+  let minX=Infinity,minY=Infinity,maxX=-Infinity,maxY=-Infinity;
+  for(const {item} of matchItems){
+    const tx=item.transform[4];
+    const ty=item.transform[5];
+    const fs=Math.abs(item.transform[3])||10;
+    const w=item.width||30;
+    // Convert corners to viewport space
+    const pts=[
+      viewport.convertToViewportPoint(tx,ty),
+      viewport.convertToViewportPoint(tx+w,ty),
+      viewport.convertToViewportPoint(tx,ty+fs),
+      viewport.convertToViewportPoint(tx+w,ty+fs)
+    ];
+    for(const [px,py] of pts){
+      minX=Math.min(minX,px);minY=Math.min(minY,py);
+      maxX=Math.max(maxX,px);maxY=Math.max(maxY,py);
     }
   }
 
-  if(dateIssues.length){
-    html+=`<div class="section-label">⚠️ Date Issues Detected</div>`;
-    dateIssues.forEach(issue=>{
-      html+=`<div class="date-issue-card"><div class="di-title">⚠️ ${esc(issue.type)} Date Mismatch${issue.page_a?` — Page ${issue.page_a} (Doc A) / Page ${issue.page_b||'?'} (Doc B)`:''}</div><div class="di-body">${esc(issue.message)}</div><div class="di-values">${issue.value_in_a?`<span class="di-val old">Doc A: ${esc(issue.value_in_a)}</span>`:''}${issue.value_in_b?`<span class="di-val new">Doc B: ${esc(issue.value_in_b)}</span>`:''}</div></div>`;
-    });
-  }
+  const pad=4;
+  const rx=minX-pad,ry=minY-pad,rw=maxX-minX+pad*2,rh=maxY-minY+pad*2;
+  if(rw<4||rh<4)return;
 
-  const changes=result.changes||[];
-  if(!changes.length){
-    html+=`<div class="no-changes">🎉 No differences found between the two documents!</div>`;
-  }else{
-    html+=`<div class="section-label">🔍 Detailed Changes (${changes.length} total)</div>`;
-    changes.forEach(c=>{
-      const pl=[c.page_a?`Page ${c.page_a} (Doc A)`:'',c.page_b?`Page ${c.page_b} (Doc B)`:'']. filter(Boolean).join(' → ');
-      let tc='type-modified',tt='● Modified';
-      if(c.type==='deleted'){tc='type-deleted';tt='● Deleted';}
-      if(c.type==='added'){tc='type-added';tt='● Added';}
-      html+=`<div class="change-card"><div class="cc-header"><span class="cc-page">${esc(pl)}</span><span class="cc-type ${tc}">${tt}</span></div><div class="cc-body">`;
-      if(c.type==='modified'){html+=`<div class="diff-block diff-old"><div class="diff-label">Old (removed)</div>${esc(c.old_text)}</div><div class="cc-arrow">↓</div><div class="diff-block diff-new-mod"><div class="diff-label" style="color:var(--red)">New (changed)</div>${esc(c.new_text)}</div>`;}
-      else if(c.type==='deleted'){html+=`<div class="diff-block diff-old"><div class="diff-label">Deleted text</div>${esc(c.old_text)}</div>`;}
-      else{html+=`<div class="diff-block diff-new-add"><div class="diff-label">Added text</div>${esc(c.new_text)}</div>`;}
-      if(c.description)html+=`<div class="cc-desc">💡 ${esc(c.description)}</div>`;
-      html+=`</div></div>`;
-    });
-  }
-  document.getElementById('reportBody').innerHTML=html;
+  ctx.save();
+  ctx.fillStyle=`rgba(${color.r},${color.g},${color.b},0.2)`;
+  ctx.strokeStyle=`rgba(${color.r},${color.g},${color.b},0.9)`;
+  ctx.lineWidth=2;
+  ctx.fillRect(rx,ry,rw,rh);
+  ctx.strokeRect(rx,ry,rw,rh);
+  ctx.restore();
 }
+
+function esc(s){if(!s)return '';return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
 
 function resetApp(){
   files={1:null,2:null};names={1:'',2:''};
@@ -406,7 +518,8 @@ function resetApp(){
   ['fn1','fn2'].forEach(id=>document.getElementById(id).textContent='');
   ['dz1','dz2'].forEach(id=>document.getElementById(id).classList.remove('has-file'));
   document.getElementById('badge-date').style.display='none';
-  updateCompareBtn();showPhase('phase-upload');
+  document.getElementById('reportBody').innerHTML='';
+  updateBtn();showPhase('phase-upload');
 }
 </script>
 </body>
