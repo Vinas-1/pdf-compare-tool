@@ -134,6 +134,16 @@ body{font-family:'IBM Plex Sans',sans-serif;background:var(--bg);color:var(--ink
 .pcl-mod .pcl-type{color:var(--red)}
 .pcl-del .pcl-type{color:var(--purple)}
 .pcl-add .pcl-type{color:var(--green)}
+.conf-high{color:#16a34a;font-weight:700}
+.conf-medium{color:#b45309;font-weight:700}
+.conf-low{color:#dc2626;font-weight:700}
+.verify-block{margin-top:8px;display:none;background:#f8f7f3;border-radius:6px;padding:10px 12px;font-family:'IBM Plex Mono',monospace;font-size:0.75rem;line-height:1.6}
+.verify-block.open{display:block}
+.verify-old{color:var(--purple);margin-bottom:6px}
+.verify-new{color:var(--green)}
+.verify-btn{background:none;border:1px solid var(--border);padding:3px 10px;border-radius:6px;font-size:0.72rem;cursor:pointer;color:var(--muted);margin-top:6px;font-family:inherit}
+.verify-btn:hover{border-color:var(--accent);color:var(--accent)}
+.low-conf-warning{background:var(--amber-bg);border:1px solid var(--amber-border);border-radius:6px;padding:6px 10px;font-size:0.75rem;color:var(--amber);margin-top:6px}
 
 .rendering-note{text-align:center;padding:12px;color:var(--muted);font-size:0.82rem;font-style:italic}
 @media print{#api-banner{display:none!important}.rh-right button{display:none}}
@@ -281,58 +291,112 @@ async function startComparison(){
 }
 
 async function callGroq(pages1,pages2){
-  const fmt=pages=>pages.map(p=>`[P${p.pageNum}] ${p.text}`).join('\n').slice(0,4000);
-  const doc1=fmt(pages1), doc2=fmt(pages2);
+  // Compare page by page for maximum accuracy
+  const allChanges=[];
+  const allDateIssues=[];
+  let summaryParts=[];
+  const totalPages=Math.max(pages1.length,pages2.length);
 
-  const prompt=`Compare Document A (old) and Document B (new). Find all differences.
+  for(let i=0;i<totalPages;i++){
+    const p1=pages1[i]||null;
+    const p2=pages2[i]||null;
+    const pNum=(p2||p1).pageNum;
 
-DOC A: ${doc1}
+    // Skip pages with identical text
+    const t1=(p1?.text||'').trim();
+    const t2=(p2?.text||'').trim();
+    if(t1===t2) continue;
+    if(!t1&&!t2) continue;
 
-DOC B: ${doc2}
+    // Update progress
+    const s2=document.getElementById('step2');
+    s2.innerHTML=`<span class="step-icon">🤖</span> Comparing page ${pNum} of ${totalPages}…`;
+    s2.classList.add('active');
 
-Rules:
-- Find VAO dates (Validity Applicable On) and WEF dates (With Effect From) — flag mismatches
-- Find every change: modified text, deleted text, added text
-- For each change include the EXACT short text snippet (max 30 chars) from Doc B that should be highlighted
-- Keep descriptions brief
+    const prompt=`You are an aviation document auditor. Compare ONLY these two versions of page ${pNum}.
 
-Return ONLY this JSON (no markdown, nothing else):
-{"summary":"brief summary of all changes","stats":{"modified":0,"deleted":0,"added":0},"date_issues":[{"type":"VAO","page_a":1,"page_b":1,"value_in_a":"date","value_in_b":"date","message":"explanation"}],"changes":[{"page_b":1,"type":"modified","highlight_text":"exact text in doc B to highlight max 30 chars","description":"what changed"},{"page_b":2,"type":"deleted","highlight_text":"","description":"what was removed"},{"page_b":3,"type":"added","highlight_text":"exact new text max 30 chars","description":"what was added"}]}`;
+OLD (Doc A page ${pNum}):
+"""
+${t1.slice(0,1500)||'[page not present]'}
+"""
 
-  const doFetch=async(attempt)=>{
-    const r=await fetch('https://api.groq.com/openai/v1/chat/completions',{
-      method:'POST',
-      headers:{'Content-Type':'application/json','Authorization':'Bearer '+apiKey},
-      body:JSON.stringify({
-        model:'llama-3.1-8b-instant',
-        messages:[
-          {role:'system',content:'You are a document auditor. Respond ONLY with valid JSON. No markdown.'},
-          {role:'user',content:prompt}
-        ],
-        temperature:0.1,max_tokens:1200,
-        response_format:{type:'json_object'}
-      })
-    });
-    if(!r.ok){
-      const e=await r.json();
-      const msg=e?.error?.message||r.statusText;
-      if(r.status===429&&attempt<=3){
-        const wait=12*attempt;
-        const s2=document.getElementById('step2');
-        s2.innerHTML='<span class="step-icon">⏳</span> Rate limit — retrying in '+wait+'s (attempt '+attempt+'/3)…';
-        s2.classList.add('active');
-        await new Promise(res=>setTimeout(res,wait*1000));
-        return doFetch(attempt+1);
+NEW (Doc B page ${pNum}):
+"""
+${t2.slice(0,1500)||'[page not present]'}
+"""
+
+Instructions:
+1. ONLY flag something as changed if the text is genuinely different between OLD and NEW
+2. If a procedure exists in BOTH old and new with same text — it is NOT a change
+3. VAO = Validity Applicable On, WEF = With Effect From — flag if values differ
+4. For highlight_text use exact short phrase from NEW doc (max 25 chars)
+5. confidence: "high" if clearly changed, "medium" if likely changed, "low" if uncertain
+
+Return ONLY valid JSON:
+{"summary":"one sentence summary of changes on this page or empty string if none","date_issues":[{"type":"VAO or WEF","value_in_a":"old date","value_in_b":"new date","message":"explanation"}],"changes":[{"type":"modified","highlight_text":"short exact phrase from new doc","old_snippet":"short phrase from old doc","new_snippet":"short phrase from new doc","description":"what specifically changed","confidence":"high"}]}
+
+If no real changes found return: {"summary":"","date_issues":[],"changes":[]}`;
+
+    try{
+      const result=await fetchGroq(prompt);
+      if(result.summary) summaryParts.push(`Page ${pNum}: ${result.summary}`);
+      (result.date_issues||[]).forEach(d=>allDateIssues.push({...d,page_a:pNum,page_b:pNum}));
+      (result.changes||[]).forEach(c=>allChanges.push({...c,page_b:pNum,page_a:pNum}));
+    }catch(err){
+      if(err.message.includes('429')||err.message.includes('rate')){
+        s2.innerHTML=`<span class="step-icon">⏳</span> Rate limit — waiting 15s before page ${pNum}…`;
+        await new Promise(r=>setTimeout(r,15000));
+        // retry once
+        try{
+          const result=await fetchGroq(prompt);
+          if(result.summary) summaryParts.push(`Page ${pNum}: ${result.summary}`);
+          (result.date_issues||[]).forEach(d=>allDateIssues.push({...d,page_a:pNum,page_b:pNum}));
+          (result.changes||[]).forEach(c=>allChanges.push({...c,page_b:pNum,page_a:pNum}));
+        }catch(e2){console.warn('Skipping page '+pNum+' after retry:',e2.message);}
+      }else{
+        console.warn('Skipping page '+pNum+':',err.message);
       }
-      throw new Error('Groq error: '+msg);
     }
-    return r.json();
+    // Small delay between pages to avoid rate limit
+    await new Promise(r=>setTimeout(r,1200));
+  }
+
+  const mods=allChanges.filter(c=>c.type==='modified').length;
+  const dels=allChanges.filter(c=>c.type==='deleted').length;
+  const adds=allChanges.filter(c=>c.type==='added').length;
+
+  return {
+    summary: summaryParts.length ? summaryParts.join(' | ') : 'No significant changes detected.',
+    stats:{modified:mods,deleted:dels,added:adds},
+    date_issues:allDateIssues,
+    changes:allChanges
   };
-  const data=await doFetch(1);
+}
+
+async function fetchGroq(prompt){
+  const resp=await fetch('https://api.groq.com/openai/v1/chat/completions',{
+    method:'POST',
+    headers:{'Content-Type':'application/json','Authorization':'Bearer '+apiKey},
+    body:JSON.stringify({
+      model:'llama-3.1-8b-instant',
+      messages:[
+        {role:'system',content:'You are an aviation document auditor. Return ONLY valid JSON. Never add text outside JSON.'},
+        {role:'user',content:prompt}
+      ],
+      temperature:0,max_tokens:800,
+      response_format:{type:'json_object'}
+    })
+  });
+  if(!resp.ok){
+    const e=await resp.json();
+    throw new Error((resp.status===429?'429 ':'')+'Groq error: '+(e?.error?.message||resp.statusText));
+  }
+  const data=await resp.json();
   const text=data?.choices?.[0]?.message?.content||'{}';
   try{return JSON.parse(text.replace(/```json|```/g,'').trim());}
-  catch(e){const m=text.match(/\{[\s\S]*\}/);if(m)return JSON.parse(m[0]);throw new Error('Could not parse AI response');}
+  catch(e){const m=text.match(/\{[\s\S]*\}/);if(m)return JSON.parse(m[0]);return {summary:'',date_issues:[],changes:[]};}
 }
+
 
 // ── RENDER ANNOTATED PDF ──
 async function renderReport(result, pdfFile){
@@ -455,10 +519,24 @@ async function renderReport(result, pdfFile){
     // Change details below page
     if(pageChanges.length){
       const cList=document.createElement('div');cList.className='pdf-change-list';
-      pageChanges.forEach(c=>{
+      pageChanges.forEach((c,ci)=>{
         const item=document.createElement('div');
         item.className='pcl-item pcl-'+(c.type==='modified'?'mod':c.type==='deleted'?'del':'add');
-        item.innerHTML=`<div class="pcl-type">${c.type==='modified'?'🔴 Modified':c.type==='deleted'?'🟣 Deleted':'🟢 Added'}</div>${esc(c.description||'')}`;
+        const conf=c.confidence||'medium';
+        const confLabel=conf==='high'?'<span class="conf-high">● High confidence</span>':conf==='low'?'<span class="conf-low">⚠ Low confidence — verify manually</span>':'<span class="conf-medium">◐ Medium confidence</span>';
+        const vid=`verify-${pNum}-${ci}`;
+        const hasVerify=c.old_snippet||c.new_snippet;
+        item.innerHTML=`<div class="pcl-type" style="display:flex;align-items:center;justify-content:space-between">
+          <span>${c.type==='modified'?'🔴 Modified':c.type==='deleted'?'🟣 Deleted':'🟢 Added'}</span>
+          ${confLabel}
+        </div>
+        ${esc(c.description||'')}
+        ${conf==='low'?'<div class="low-conf-warning">⚠️ Low confidence — this may be a false positive. Please verify manually against original documents.</div>':''}
+        ${hasVerify?`<button class="verify-btn" onclick="document.getElementById('${vid}').classList.toggle('open');this.textContent=this.textContent.includes('Show')?'Hide original text ▲':'Show original text ▼'">Show original text ▼</button>
+        <div class="verify-block" id="${vid}">
+          ${c.old_snippet?`<div class="verify-old">📄 OLD: ${esc(c.old_snippet)}</div>`:''}
+          ${c.new_snippet?`<div class="verify-new">📄 NEW: ${esc(c.new_snippet)}</div>`:''}
+        </div>`:''}`;
         cList.appendChild(item);
       });
       wrap.appendChild(cList);
