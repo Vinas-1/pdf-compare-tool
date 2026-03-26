@@ -296,27 +296,18 @@ Instructions:
 3. List every modification, deletion, and addition with exact text
 4. Write a detailed plain-English summary of all changes
 
-Return ONLY valid JSON (absolutely no markdown, no text outside the JSON object):
+Return ONLY a valid JSON object. No explanation, no markdown, no text before or after the JSON.
+Use exactly this structure:
 {
-  "summary": "Detailed plain-English summary of all changes",
+  "summary": "plain English summary of all changes",
   "stats": {"modified": 0, "deleted": 0, "added": 0},
-  "date_consistency": {
-    "vao_dates_doc_a": [],
-    "vao_dates_doc_b": [],
-    "wef_dates_doc_a": [],
-    "wef_dates_doc_b": [],
-    "vao_consistent_within_a": true,
-    "vao_consistent_within_b": true,
-    "wef_consistent_within_a": true,
-    "wef_consistent_within_b": true
-  },
   "date_issues": [
-    {"type": "VAO or WEF or Other", "page_a": 1, "page_b": 1, "value_in_a": "date in doc A", "value_in_b": "date in doc B", "message": "Explanation"}
+    {"type": "WEF", "page_a": 1, "page_b": 1, "value_in_a": "date", "value_in_b": "date", "message": "explanation"}
   ],
   "changes": [
-    {"page_a": 1, "page_b": 1, "type": "modified", "old_text": "text from A", "new_text": "text from B", "description": "Explanation"},
-    {"page_a": 2, "page_b": null, "type": "deleted", "old_text": "deleted text", "new_text": "", "description": "Explanation"},
-    {"page_a": null, "page_b": 3, "type": "added", "old_text": "", "new_text": "new text", "description": "Explanation"}
+    {"page_a": 1, "page_b": 1, "type": "modified", "old_text": "old", "new_text": "new", "description": "why"},
+    {"page_a": 2, "page_b": null, "type": "deleted", "old_text": "removed", "new_text": "", "description": "why"},
+    {"page_a": null, "page_b": 3, "type": "added", "old_text": "", "new_text": "added", "description": "why"}
   ]
 }`;
 
@@ -369,7 +360,7 @@ function renderReport(result){
   html+=`<div class="legend"><span style="font-size:0.75rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px">Legend:</span><div class="leg-item"><div class="leg-dot leg-red"></div>Modified</div><div class="leg-item"><div class="leg-dot leg-purple"></div>Deleted</div><div class="leg-item"><div class="leg-dot leg-green"></div>Added</div></div>`;
   html+=`<div class="summary-card"><div class="sc-header">📋 &nbsp;AI Summary of Changes</div><div class="sc-body">${esc(result.summary||'No summary available.')}</div></div>`;
 
-  const dc=result.date_consistency;
+  const dc = null;
   if(dc){
     const hv=(dc.vao_dates_doc_a||[]).length||(dc.vao_dates_doc_b||[]).length;
     const hw=(dc.wef_dates_doc_a||[]).length||(dc.wef_dates_doc_b||[]).length;
