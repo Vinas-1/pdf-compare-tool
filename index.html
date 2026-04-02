@@ -10,258 +10,222 @@
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
   --bg:#f2f0ea;--surface:#fff;--ink:#0d1520;--ink2:#243350;--muted:#7a8499;--border:#dbd8d0;
-  --pink:#d4156b;--pink-bg:#fff0f7;--pink-border:#f9a8d4;--pink-light:rgba(212,21,107,0.15);--pink-stroke:rgba(212,21,107,0.9);
-  --purple:#6d28d9;--purple-bg:#f5f3ff;--purple-border:#c4b5fd;--purple-light:rgba(109,40,217,0.15);--purple-stroke:rgba(109,40,217,0.9);
-  --orange:#c2410c;--orange-bg:#fff7ed;--orange-border:#fdba74;--orange-light:rgba(194,65,12,0.15);--orange-stroke:rgba(194,65,12,0.9);
+  --pink:#d4156b;--pink-bg:#fff0f7;--pink-border:#f9a8d4;
+  --purple:#6d28d9;--purple-bg:#f5f3ff;--purple-border:#c4b5fd;
+  --orange:#c2410c;--orange-bg:#fff7ed;--orange-border:#fdba74;
   --green:#16a34a;--accent:#1d4ed8;
-  --shadow:0 2px 16px rgba(0,0,0,.08);--shadow-lg:0 6px 32px rgba(0,0,0,.14);
+  --shadow:0 2px 12px rgba(0,0,0,.07);--shadow-lg:0 6px 28px rgba(0,0,0,.13);
 }
 body{font-family:'IBM Plex Sans',sans-serif;background:var(--bg);color:var(--ink);min-height:100vh;overflow-x:hidden}
 .phase{display:none}.phase.active{display:flex}
-a{color:var(--accent);text-decoration:none}
-a:hover{text-decoration:underline}
 
-/* ═══════════════ API BANNER ═══════════════ */
-#api-banner{
-  background:linear-gradient(135deg,#0d1520 0%,#1a2f5a 100%);
-  color:#fff;padding:12px 24px;display:flex;align-items:center;
-  justify-content:space-between;flex-wrap:wrap;gap:12px;
-  border-bottom:1px solid rgba(255,255,255,.08);
-}
-.ab-left{display:flex;align-items:center;gap:12px}
-.ab-icon{font-size:1.4rem}
-.ab-title{font-weight:700;font-size:0.82rem;letter-spacing:.2px}
-.ab-sub{font-size:0.7rem;color:rgba(255,255,255,.55);margin-top:2px}
-.ab-sub a{color:#93c5fd;font-weight:600}
-.ab-right{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
-#apiKeyInput{
-  background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.22);
-  color:#fff;padding:7px 13px;border-radius:8px;font-size:0.79rem;
-  width:280px;font-family:'IBM Plex Mono',monospace;outline:none;transition:all .2s;
-}
-#apiKeyInput::placeholder{color:rgba(255,255,255,.35)}
-#apiKeyInput:focus{background:rgba(255,255,255,.18);border-color:rgba(255,255,255,.5)}
-.ab-btn{background:#1d4ed8;color:#fff;border:none;padding:7px 15px;border-radius:8px;font-size:0.79rem;font-weight:600;cursor:pointer;transition:all .2s}
+/* ═══ API BANNER ═══ */
+#api-banner{background:linear-gradient(135deg,#0d1520,#1a2f5a);color:#fff;padding:11px 22px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;border-bottom:1px solid rgba(255,255,255,.08)}
+.ab-left{display:flex;align-items:center;gap:10px}
+.ab-icon{font-size:1.3rem}
+.ab-title{font-weight:700;font-size:0.81rem}
+.ab-sub{font-size:0.69rem;color:rgba(255,255,255,.5);margin-top:2px}
+.ab-sub a{color:#93c5fd;font-weight:600;text-decoration:none}
+.ab-right{display:flex;gap:7px;align-items:center;flex-wrap:wrap}
+#apiKeyInput{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#fff;padding:6px 12px;border-radius:7px;font-size:0.78rem;width:270px;font-family:'IBM Plex Mono',monospace;outline:none;transition:all .2s}
+#apiKeyInput::placeholder{color:rgba(255,255,255,.33)}
+#apiKeyInput:focus{background:rgba(255,255,255,.17);border-color:rgba(255,255,255,.48)}
+.ab-btn{background:#1d4ed8;color:#fff;border:none;padding:6px 14px;border-radius:7px;font-size:0.78rem;font-weight:600;cursor:pointer;transition:all .2s}
 .ab-btn:hover{background:#1e40af}
-.ab-status{font-size:0.74rem;padding:4px 10px;border-radius:20px;font-weight:600}
+.ab-status{font-size:0.72rem;padding:3px 10px;border-radius:20px;font-weight:600}
 .ab-status.set{background:rgba(22,163,74,.35);color:#86efac}
 .ab-status.notset{background:rgba(220,38,38,.28);color:#fca5a5}
 
-/* ═══════════════ UPLOAD ═══════════════ */
-#phase-upload{flex-direction:column;align-items:center;justify-content:center;min-height:calc(100vh - 58px);padding:40px 20px;gap:28px}
+/* ═══ UPLOAD ═══ */
+#phase-upload{flex-direction:column;align-items:center;justify-content:center;min-height:calc(100vh - 54px);padding:36px 18px;gap:26px}
 .logo{text-align:center}
-.logo h1{font-family:'Playfair Display',serif;font-size:2rem;color:var(--ink);letter-spacing:-0.4px;line-height:1.25}
-.logo p{color:var(--muted);font-size:0.88rem;margin-top:8px;line-height:1.6}
-.feature-pills{display:flex;gap:7px;flex-wrap:wrap;justify-content:center;margin-top:14px}
-.pill{font-size:0.7rem;font-weight:600;padding:4px 11px;border-radius:20px;border:1px solid;letter-spacing:.2px}
+.logo h1{font-family:'Playfair Display',serif;font-size:1.9rem;color:var(--ink);letter-spacing:-.3px}
+.logo p{color:var(--muted);font-size:0.86rem;margin-top:7px;line-height:1.6}
+.feature-pills{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin-top:12px}
+.pill{font-size:0.69rem;font-weight:600;padding:3px 10px;border-radius:20px;border:1px solid}
 .pill-blue{background:#eff6ff;color:#1d4ed8;border-color:#bfdbfe}
 .pill-pink{background:var(--pink-bg);color:var(--pink);border-color:var(--pink-border)}
 .pill-purple{background:var(--purple-bg);color:var(--purple);border-color:var(--purple-border)}
 .pill-gray{background:#f5f4f0;color:var(--muted);border-color:var(--border)}
-
-.upload-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;width:100%;max-width:720px}
-@media(max-width:560px){.upload-grid{grid-template-columns:1fr}}
-.drop-zone{
-  background:var(--surface);border:2px dashed var(--border);border-radius:14px;
-  padding:32px 22px;text-align:center;cursor:pointer;transition:all .25s;
-  position:relative;box-shadow:var(--shadow);
-}
+.pill-green{background:#f0fdf4;color:var(--green);border-color:#bbf7d0}
+.upload-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;width:100%;max-width:700px}
+@media(max-width:540px){.upload-grid{grid-template-columns:1fr}}
+.drop-zone{background:var(--surface);border:2px dashed var(--border);border-radius:13px;padding:30px 20px;text-align:center;cursor:pointer;transition:all .25s;position:relative;box-shadow:var(--shadow)}
 .drop-zone:hover,.drop-zone.drag-over{border-color:var(--accent);background:#eff6ff}
 .drop-zone.has-file{border-style:solid;border-color:var(--green);background:#f0fdf4}
 .drop-zone input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
-.dz-icon{font-size:2rem;margin-bottom:10px}
-.dz-label{font-size:0.68rem;text-transform:uppercase;letter-spacing:1.3px;color:var(--muted);font-weight:700;margin-bottom:7px}
-.dz-title{font-weight:600;font-size:0.92rem;color:var(--ink);margin-bottom:4px}
-.dz-sub{font-size:0.76rem;color:var(--muted)}
-.dz-fn{font-size:0.74rem;color:var(--green);font-weight:500;margin-top:8px;font-family:'IBM Plex Mono',monospace;word-break:break-all}
-.cmp-btn{
-  background:var(--ink);color:#fff;border:none;padding:14px 48px;
-  border-radius:12px;font-size:0.96rem;font-weight:600;cursor:pointer;
-  transition:all .2s;letter-spacing:.2px;
-}
-.cmp-btn:hover:not(:disabled){background:var(--accent);transform:translateY(-2px);box-shadow:0 6px 22px rgba(29,78,216,.3)}
-.cmp-btn:disabled{opacity:.32;cursor:not-allowed;transform:none}
+.dz-icon{font-size:1.9rem;margin-bottom:9px}
+.dz-label{font-size:0.67rem;text-transform:uppercase;letter-spacing:1.2px;color:var(--muted);font-weight:700;margin-bottom:6px}
+.dz-title{font-weight:600;font-size:0.9rem;color:var(--ink);margin-bottom:3px}
+.dz-sub{font-size:0.75rem;color:var(--muted)}
+.dz-fn{font-size:0.73rem;color:var(--green);font-weight:500;margin-top:7px;font-family:'IBM Plex Mono',monospace;word-break:break-all}
+.cmp-btn{background:var(--ink);color:#fff;border:none;padding:13px 46px;border-radius:11px;font-size:0.94rem;font-weight:600;cursor:pointer;transition:all .2s}
+.cmp-btn:hover:not(:disabled){background:var(--accent);transform:translateY(-2px);box-shadow:0 6px 20px rgba(29,78,216,.28)}
+.cmp-btn:disabled{opacity:.3;cursor:not-allowed;transform:none}
 
-/* ═══════════════ PROCESSING ═══════════════ */
-#phase-process{flex-direction:column;align-items:center;justify-content:center;min-height:calc(100vh - 58px);gap:22px;padding:24px}
-.proc-icon{font-size:2.8rem;animation:spin 2s linear infinite}
+/* ═══ PROCESSING ═══ */
+#phase-process{flex-direction:column;align-items:center;justify-content:center;min-height:calc(100vh - 54px);gap:20px;padding:24px}
+.proc-icon{font-size:2.6rem;animation:spin 2s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
-.proc-h{font-family:'Playfair Display',serif;font-size:1.35rem;color:var(--ink);text-align:center}
-.proc-sub{font-size:0.83rem;color:var(--muted);max-width:380px;text-align:center;line-height:1.6}
-.proc-steps{display:flex;flex-direction:column;gap:8px;width:100%;max-width:460px}
-.ps{display:flex;align-items:center;gap:12px;padding:11px 16px;background:var(--surface);border-radius:10px;border:1px solid var(--border);font-size:0.82rem;color:var(--ink2);transition:all .3s}
-.ps .si{width:24px;text-align:center;flex-shrink:0;font-size:1rem}
+.proc-h{font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--ink);text-align:center}
+.proc-sub{font-size:0.82rem;color:var(--muted);max-width:360px;text-align:center;line-height:1.6}
+.proc-progress{width:100%;max-width:440px;height:5px;background:#e5e7eb;border-radius:4px;overflow:hidden}
+.proc-bar{height:100%;background:linear-gradient(90deg,var(--accent),#7c3aed);border-radius:4px;transition:width .5s ease;width:0%}
+.proc-steps{display:flex;flex-direction:column;gap:7px;width:100%;max-width:440px}
+.ps{display:flex;align-items:center;gap:11px;padding:10px 15px;background:var(--surface);border-radius:9px;border:1px solid var(--border);font-size:0.81rem;color:var(--ink2);transition:all .3s}
+.ps .si{width:22px;text-align:center;flex-shrink:0}
 .ps.active{border-color:var(--accent);background:#eff6ff;font-weight:600;color:var(--accent)}
 .ps.done{border-color:var(--green);background:#f0fdf4;color:var(--green)}
-.ps.error{border-color:var(--pink);background:var(--pink-bg);color:var(--pink)}
 .ps.active .si{animation:pulse 1.1s ease-in-out infinite}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.25}}
-.proc-progress{width:100%;max-width:460px;height:4px;background:#e5e7eb;border-radius:4px;overflow:hidden}
-.proc-bar{height:100%;background:linear-gradient(90deg,var(--accent),#7c3aed);border-radius:4px;transition:width .5s ease;width:0%}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.2}}
 
-/* ═══════════════ REPORT ═══════════════ */
+/* ═══ REPORT ═══ */
 #phase-report{flex-direction:column;min-height:100vh}
-.rpt-header{background:var(--ink);color:#fff;padding:18px 32px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;position:sticky;top:0;z-index:50}
-.rh-l h2{font-family:'Playfair Display',serif;font-size:1.25rem}
-.rh-l p{font-size:0.75rem;color:#94a3b8;margin-top:3px}
-.rh-r{display:flex;gap:7px;flex-wrap:wrap;align-items:center}
-.rbadge{padding:5px 11px;border-radius:8px;font-size:0.74rem;font-weight:700}
+.rpt-header{background:var(--ink);color:#fff;padding:16px 28px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;position:sticky;top:0;z-index:50}
+.rh-l h2{font-family:'Playfair Display',serif;font-size:1.2rem}
+.rh-l p{font-size:0.73rem;color:#94a3b8;margin-top:2px}
+.rh-r{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.rbadge{padding:5px 10px;border-radius:7px;font-size:0.72rem;font-weight:700}
 .rb-pink{background:rgba(212,21,107,.25);color:#f9a8d4}
 .rb-purple{background:rgba(109,40,217,.25);color:#c4b5fd}
 .rb-mod{background:rgba(194,65,12,.25);color:#fdba74}
-.rbtn{border:1px solid rgba(255,255,255,.2);background:transparent;color:#fff;padding:6px 13px;border-radius:8px;font-size:0.75rem;cursor:pointer;transition:all .2s;font-weight:500}
+.rbtn{border:1px solid rgba(255,255,255,.2);background:transparent;color:#fff;padding:5px 12px;border-radius:7px;font-size:0.73rem;cursor:pointer;transition:all .2s;font-weight:500}
 .rbtn:hover{background:rgba(255,255,255,.1)}
 .rbtn.primary{background:var(--accent);border-color:var(--accent)}
 .rbtn.primary:hover{background:#1e40af}
-.rpt-body{max-width:960px;margin:0 auto;padding:24px 18px;width:100%;display:flex;flex-direction:column;gap:20px}
+.rpt-body{max-width:1040px;margin:0 auto;padding:22px 16px;width:100%;display:flex;flex-direction:column;gap:18px}
 
-/* ── SUMMARY ONE-PAGE ── */
-.summary-page{background:var(--surface);border-radius:14px;border:1px solid var(--border);overflow:hidden;box-shadow:var(--shadow-lg)}
-.sp-hero{
-  background:linear-gradient(135deg,#0d1520 0%,#1a2f5a 60%,#1d4ed8 100%);
-  color:#fff;padding:22px 26px;
-}
-.sp-hero-top{display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:14px;margin-bottom:18px}
-.sp-title{font-family:'Playfair Display',serif;font-size:1.3rem}
-.sp-meta{font-size:0.72rem;color:rgba(255,255,255,.55);margin-top:4px}
-.sp-stats{display:flex;gap:10px;flex-wrap:wrap}
-.sp-stat{text-align:center;padding:10px 18px;border-radius:10px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.12)}
-.sp-stat-n{font-size:1.7rem;font-weight:800;line-height:1}
-.sp-stat-l{font-size:0.62rem;text-transform:uppercase;letter-spacing:1px;opacity:.65;margin-top:4px}
-.sp-stat-del .sp-stat-n{color:#fda4af}
-.sp-stat-add .sp-stat-n{color:#c4b5fd}
-.sp-stat-mod .sp-stat-n{color:#fdba74}
-.sp-stat-tot .sp-stat-n{color:#fff}
-/* Severity bar */
-.sp-severity{display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-top:14px}
-.sp-sev-label{font-size:0.68rem;color:rgba(255,255,255,.55);font-weight:600;text-transform:uppercase;letter-spacing:1px}
-.sev-pill{font-size:0.68rem;font-weight:700;padding:3px 10px;border-radius:12px;border:1px solid rgba(255,255,255,.2)}
-.sev-high{background:rgba(239,68,68,.35);color:#fca5a5}
-.sev-med{background:rgba(245,158,11,.3);color:#fcd34d}
-.sev-low{background:rgba(100,116,139,.3);color:#cbd5e1}
+/* ── OVERALL SUMMARY ── */
+.overall-summary{background:var(--surface);border-radius:13px;border:1px solid var(--border);overflow:hidden;box-shadow:var(--shadow-lg)}
+.os-hero{background:linear-gradient(135deg,#0d1520,#1a2f5a 60%,#1d4ed8);color:#fff;padding:20px 24px}
+.os-hero-top{display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:12px}
+.os-title{font-family:'Playfair Display',serif;font-size:1.2rem}
+.os-meta{font-size:0.69rem;color:rgba(255,255,255,.5);margin-top:3px}
+.os-stats{display:flex;gap:9px;flex-wrap:wrap}
+.os-stat{text-align:center;padding:9px 15px;border-radius:9px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.11)}
+.os-stat-n{font-size:1.5rem;font-weight:800;line-height:1}
+.os-stat-l{font-size:0.59rem;text-transform:uppercase;letter-spacing:1px;opacity:.6;margin-top:3px}
+.os-stat-del .os-stat-n{color:#fda4af}
+.os-stat-add .os-stat-n{color:#c4b5fd}
+.os-stat-mod .os-stat-n{color:#fdba74}
+.os-stat-tot .os-stat-n{color:#fff}
+.os-body{padding:16px 22px;display:flex;flex-direction:column;gap:12px}
+.os-overview{font-size:0.87rem;color:var(--ink2);line-height:1.75;padding:13px 16px;background:#f8f9fb;border-radius:9px;border-left:4px solid var(--accent)}
+.os-pages-row{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.os-pages-lbl{font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-right:2px}
+.pg-chip{font-size:0.7rem;font-weight:600;padding:3px 9px;border-radius:12px;cursor:pointer;transition:all .15s;border:1px solid}
+.pg-chip.changed{background:var(--pink-bg);color:var(--pink);border-color:var(--pink-border)}
+.pg-chip.changed:hover{background:var(--pink);color:#fff}
+.pg-chip.added{background:var(--purple-bg);color:var(--purple);border-color:var(--purple-border)}
+.pg-chip.added:hover{background:var(--purple);color:#fff}
+.pg-chip.clean{background:#f5f4f0;color:var(--muted);border-color:var(--border);cursor:default}
 
-.sp-body{padding:22px 24px;display:flex;flex-direction:column;gap:18px}
-.sp-overview{font-size:0.9rem;color:var(--ink2);line-height:1.75;padding:16px 18px;background:#f8f9fb;border-radius:10px;border-left:4px solid var(--accent)}
-.sp-cols{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-@media(max-width:620px){.sp-cols{grid-template-columns:1fr}}
-.sp-col-head{font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:10px;display:flex;align-items:center;gap:6px}
-.sp-kchange{display:flex;align-items:flex-start;gap:9px;padding:9px 12px;border-radius:8px;font-size:0.83rem;line-height:1.55;margin-bottom:6px;border:1px solid}
-.skc-del{background:var(--pink-bg);border-color:var(--pink-border)}
-.skc-add{background:var(--purple-bg);border-color:var(--purple-border)}
-.skc-mod{background:var(--orange-bg);border-color:var(--orange-border)}
-.skc-icon{font-size:0.9rem;flex-shrink:0;padding-top:1px}
-.skc-text{color:var(--ink2);font-size:0.82rem}
-.skc-text strong{color:var(--ink);font-size:0.84rem}
-
-/* ── HOW TO READ BANNER ── */
-.howto-bar{
-  display:flex;gap:0;border:1px solid var(--border);border-radius:10px;overflow:hidden;
-  background:var(--surface);box-shadow:var(--shadow);
-}
-.ht-item{flex:1;display:flex;align-items:center;gap:10px;padding:12px 16px;font-size:0.78rem;color:var(--ink2);border-right:1px solid var(--border)}
+/* ── HOW-TO-READ ── */
+.howto-bar{display:flex;gap:0;border:1px solid var(--border);border-radius:10px;overflow:hidden;background:var(--surface);box-shadow:var(--shadow)}
+.ht-item{flex:1;display:flex;align-items:center;gap:9px;padding:11px 14px;font-size:0.77rem;color:var(--ink2);border-right:1px solid var(--border)}
 .ht-item:last-child{border-right:none}
-.ht-swatch{width:22px;height:16px;border-radius:4px;border:2.5px solid;flex-shrink:0}
-.hts-del{background:var(--pink-light);border-color:var(--pink)}
-.hts-add{background:var(--purple-light);border-color:var(--purple)}
-.hts-mod{background:var(--orange-light);border-color:var(--orange)}
+.ht-sw{width:20px;height:14px;border-radius:3px;border:2.5px solid;flex-shrink:0}
+.hts-del{background:rgba(212,21,107,.15);border-color:var(--pink)}
+.hts-add{background:rgba(109,40,217,.15);border-color:var(--purple)}
+.hts-mod{background:rgba(194,65,12,.15);border-color:var(--orange)}
 @media(max-width:560px){.howto-bar{flex-direction:column}.ht-item{border-right:none;border-bottom:1px solid var(--border)}.ht-item:last-child{border-bottom:none}}
 
-/* ── SECTION LABEL ── */
-.sec-label{font-size:0.67rem;text-transform:uppercase;letter-spacing:1.8px;color:var(--muted);font-weight:700;padding-left:2px}
-
-/* ── CHANGE CARDS ── */
-.ch-item{background:var(--surface);border-radius:12px;border:1px solid var(--border);overflow:hidden;box-shadow:var(--shadow);transition:box-shadow .2s}
-.ch-item:hover{box-shadow:var(--shadow-lg)}
-.ch-top{display:flex;align-items:flex-start;gap:14px;padding:15px 18px}
-.ch-icon{font-size:1.2rem;flex-shrink:0;padding-top:2px}
-.ch-c{flex:1;min-width:0}
-.ch-meta{display:flex;align-items:center;gap:9px;margin-bottom:6px;flex-wrap:wrap}
-.ch-type{font-size:0.66rem;font-weight:700;padding:2px 9px;border-radius:12px;text-transform:uppercase;letter-spacing:.4px}
-.ct-del{background:var(--pink-bg);color:var(--pink);border:1px solid var(--pink-border)}
-.ct-add{background:var(--purple-bg);color:var(--purple);border:1px solid var(--purple-border)}
-.ct-mod{background:var(--orange-bg);color:var(--orange);border:1px solid var(--orange-border)}
-.ch-pg{font-size:0.7rem;color:var(--muted);display:flex;align-items:center;gap:4px}
-.ch-sig{font-size:0.66rem;font-weight:700;padding:2px 8px;border-radius:10px;margin-left:auto}
-.sig-high{background:#fee2e2;color:#dc2626}.sig-med{background:#fef9c3;color:#b45309}.sig-low{background:#f1f5f9;color:var(--muted)}
-.ch-desc{font-size:0.87rem;color:var(--ink);line-height:1.65;font-weight:500}
-.ch-impact{font-size:0.76rem;color:var(--muted);margin-top:5px;line-height:1.5;font-style:italic}
-/* Evidence toggle */
-.ch-evid-btn{
-  background:none;border:1px solid var(--border);padding:4px 11px;border-radius:6px;
-  font-size:0.7rem;cursor:pointer;color:var(--muted);margin-top:9px;transition:all .2s;
-  display:inline-flex;align-items:center;gap:5px;font-family:inherit;
-}
-.ch-evid-btn:hover{border-color:var(--accent);color:var(--accent)}
-.ch-evid{display:none;margin:0 18px 15px;border-radius:8px;overflow:hidden;border:1px solid var(--border)}
-.ch-evid.open{display:block}
-.evid-row{padding:10px 14px;font-family:'IBM Plex Mono',monospace;font-size:0.75rem;line-height:1.65}
-.evid-del{background:var(--pink-bg);border-bottom:1px solid var(--pink-border)}
-.evid-add{background:var(--purple-bg)}
-.evid-lbl{font-size:0.6rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;opacity:.55}
-.evid-del .evid-lbl{color:var(--pink)}
-.evid-add .evid-lbl{color:var(--purple)}
-.evid-del-text{color:var(--pink);text-decoration:line-through}
-.evid-add-text{color:var(--purple)}
-
-/* ── PAGE COMPARISON ── */
-.pdf-compare-section{background:var(--surface);border-radius:12px;border:1px solid var(--border);overflow:hidden;box-shadow:var(--shadow)}
-.pdf-pg-hdr{
-  padding:10px 18px;background:#f5f4f0;border-bottom:1px solid var(--border);
-  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;
-}
-.pdf-pg-title{font-size:0.77rem;font-weight:700;color:var(--ink2)}
-.pdf-pg-tags{display:flex;gap:5px;flex-wrap:wrap}
-.ptag{font-size:0.65rem;font-weight:700;padding:2px 8px;border-radius:10px}
+/* ── PAGE BLOCK ── */
+.page-block{background:var(--surface);border-radius:13px;border:1px solid var(--border);overflow:hidden;box-shadow:var(--shadow);scroll-margin-top:80px}
+.pb-header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;padding:12px 18px;border-bottom:1px solid var(--border);background:#fafaf8}
+.pb-page-num{font-family:'Playfair Display',serif;font-size:0.97rem;color:var(--ink);display:flex;align-items:center;gap:8px;min-width:0;flex:1}
+.pg-label{font-size:0.66rem;background:var(--ink);color:#fff;padding:2px 9px;border-radius:10px;font-family:'IBM Plex Sans',sans-serif;font-weight:600;letter-spacing:.5px;flex-shrink:0}
+.pb-page-title{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:0.84rem;color:var(--ink2)}
+.pb-tags{display:flex;gap:5px;flex-wrap:wrap;flex-shrink:0}
+.ptag{font-size:0.63rem;font-weight:700;padding:2px 8px;border-radius:10px}
 .ptag-del{background:var(--pink-bg);color:var(--pink);border:1px solid var(--pink-border)}
 .ptag-add{background:var(--purple-bg);color:var(--purple);border:1px solid var(--purple-border)}
 .ptag-mod{background:var(--orange-bg);color:var(--orange);border:1px solid var(--orange-border)}
 .ptag-scan{background:#f5f4f0;color:var(--muted);border:1px solid var(--border)}
-.ptag-new{background:#f0fdf4;color:var(--green);border:1px solid #bbf7d0}
-.pdf-col-labels{display:grid;grid-template-columns:1fr 1fr;background:#fff;border-bottom:1px solid var(--border)}
-.pdf-col-lbl{padding:7px 14px;font-size:0.67rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;display:flex;align-items:center;gap:7px}
-.pdf-col-lbl.old{color:var(--pink);border-right:1px solid var(--border)}
-.pdf-col-lbl.new{color:var(--purple)}
-.pdf-canvases{display:grid;grid-template-columns:1fr 1fr;overflow:hidden}
-.pdf-col{overflow-x:auto;background:#d8d5cd;display:flex;justify-content:center;padding:10px;border-right:1px solid var(--border);position:relative}
-.pdf-col:last-child{border-right:none}
-.pdf-col canvas{max-width:100%;box-shadow:0 2px 12px rgba(0,0,0,.18)}
-/* Annotation container */
-.annot-wrap{position:absolute;top:10px;left:0;width:100%;height:calc(100% - 20px);display:flex;justify-content:center}
-.annot-layer{position:relative;pointer-events:none}
-.annot-layer.active{pointer-events:auto}
-.ann-box{position:absolute;border:2.5px solid;border-radius:3px;cursor:default;transition:background .15s}
-.ann-box.del-box{background:var(--pink-light);border-color:var(--pink);cursor:pointer}
-.ann-box.add-box{background:var(--purple-light);border-color:var(--purple)}
-.ann-box.mod-box{background:var(--orange-light);border-color:var(--orange)}
-/* Tooltip that appears on hover */
+.ptag-clean{background:#f0fdf4;color:var(--green);border:1px solid #bbf7d0}
+.ptag-local{background:#fefce8;color:#854d0e;border:1px solid #fde68a}
+/* Column labels */
+.pb-col-labels{display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid var(--border)}
+.pb-col-lbl{padding:6px 13px;font-size:0.64rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;display:flex;align-items:center;gap:6px}
+.pb-col-lbl.old{color:var(--pink);border-right:1px solid var(--border)}
+.pb-col-lbl.new{color:var(--purple)}
+/* Canvases */
+.pb-canvases{display:grid;grid-template-columns:1fr 1fr}
+.pb-col{overflow-x:auto;background:#d8d5cd;display:flex;justify-content:center;padding:10px;border-right:1px solid var(--border);position:relative;min-height:80px}
+.pb-col:last-child{border-right:none}
+.pb-col canvas{max-width:100%;box-shadow:0 2px 10px rgba(0,0,0,.16)}
+.pb-placeholder{display:flex;align-items:center;justify-content:center;width:100%;padding:40px;font-size:0.8rem;color:#aaa;text-align:center;font-style:italic}
+/* Annotation overlay */
+.annot-wrap{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;display:flex;justify-content:center;padding:10px}
+.annot-layer{position:relative;pointer-events:auto}
+.ann-box{position:absolute;border:2.5px solid;border-radius:3px;cursor:default;transition:background .12s}
+.ann-box.del-box{background:rgba(212,21,107,.16);border-color:var(--pink);cursor:pointer}
+.ann-box.add-box{background:rgba(109,40,217,.16);border-color:var(--purple)}
+.ann-box.mod-box{background:rgba(194,65,12,.16);border-color:var(--orange)}
 .ann-box .ann-tip{
-  position:absolute;background:#1a1a2e;color:#fff;font-size:0.71rem;
-  padding:8px 11px;border-radius:7px;max-width:270px;line-height:1.55;
-  pointer-events:none;opacity:0;transition:opacity .15s;white-space:pre-wrap;
-  z-index:200;box-shadow:0 4px 16px rgba(0,0,0,.35);
+  position:absolute;background:#1a1a2e;color:#fff;font-size:0.7rem;padding:8px 11px;
+  border-radius:7px;max-width:260px;min-width:160px;line-height:1.55;pointer-events:none;
+  opacity:0;transition:opacity .15s;z-index:200;box-shadow:0 4px 16px rgba(0,0,0,.35);
   font-family:'IBM Plex Sans',sans-serif;width:max-content;
 }
 .ann-box:hover .ann-tip{opacity:1}
-.ann-tip-head{font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:5px;color:#f9a8d4}
-.ann-tip-head.add-head{color:#c4b5fd}
-.ann-tip-body{font-size:0.72rem;color:#e2e8f0}
-.ann-tip-replaced{margin-top:8px}
-.ann-tip-rhead{font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:3px;color:#c4b5fd}
-.scan-notice{padding:11px 18px;background:#fffbeb;border-top:1px solid #fcd34d;font-size:0.77rem;color:#92400e;display:flex;align-items:center;gap:8px;line-height:1.55}
-.no-changes-page{text-align:center;padding:48px;color:var(--muted);font-size:0.88rem}
+.tip-head{font-size:0.6rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;color:#fda4af}
+.tip-head.add{color:#c4b5fd}.tip-head.mod{color:#fdba74}
+.tip-body{font-size:0.71rem;color:#e2e8f0;line-height:1.5}
+.tip-replaced{margin-top:7px}
+.tip-rhead{font-size:0.6rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:3px}
+/* Notices */
+.scan-notice{padding:9px 16px;background:#fffbeb;border-top:1px solid #fcd34d;font-size:0.75rem;color:#92400e;display:flex;align-items:center;gap:7px;line-height:1.5}
+.local-notice{padding:9px 16px;background:#fefce8;border-top:1px solid #fde68a;font-size:0.75rem;color:#854d0e;display:flex;align-items:center;gap:7px;line-height:1.5}
 
-@media print{#api-banner,.rh-r,.rpt-header .rbtn{display:none!important}}
+/* ── PAGE CHANGE SUMMARY ── */
+.pb-summary{padding:16px 18px;border-top:2px solid var(--border);background:#fcfbf9}
+.pb-sum-head{font-size:0.66rem;font-weight:700;text-transform:uppercase;letter-spacing:1.4px;color:var(--muted);margin-bottom:11px;display:flex;align-items:center;gap:8px}
+.pb-sum-head::after{content:'';flex:1;height:1px;background:var(--border)}
+.pb-narrative{font-size:0.86rem;color:var(--ink2);line-height:1.75;padding:11px 14px;background:#f8f9fb;border-radius:8px;border-left:3px solid var(--accent);margin-bottom:12px}
+.pb-clean-msg{font-size:0.83rem;color:var(--green);display:flex;align-items:center;gap:7px;padding:10px 14px;background:#f0fdf4;border-radius:8px;border:1px solid #bbf7d0}
+.pb-change-list{display:flex;flex-direction:column;gap:8px}
+/* Individual change row */
+.pb-change{display:flex;align-items:flex-start;gap:10px;padding:11px 13px;border-radius:9px;border:1px solid}
+.pbc-del{background:var(--pink-bg);border-color:var(--pink-border)}
+.pbc-add{background:var(--purple-bg);border-color:var(--purple-border)}
+.pbc-mod{background:var(--orange-bg);border-color:var(--orange-border)}
+.pbc-icon{font-size:1rem;flex-shrink:0;padding-top:1px}
+.pbc-body{flex:1;min-width:0}
+.pbc-top{display:flex;align-items:center;gap:7px;margin-bottom:5px;flex-wrap:wrap}
+.pbc-type{font-size:0.63rem;font-weight:700;padding:2px 8px;border-radius:10px;text-transform:uppercase}
+.pbt-del{background:var(--pink-bg);color:var(--pink);border:1px solid var(--pink-border)}
+.pbt-add{background:var(--purple-bg);color:var(--purple);border:1px solid var(--purple-border)}
+.pbt-mod{background:var(--orange-bg);color:var(--orange);border:1px solid var(--orange-border)}
+.pbc-sig{font-size:0.62rem;font-weight:700;padding:2px 7px;border-radius:9px;margin-left:auto}
+.sig-h{background:#fee2e2;color:#dc2626}.sig-m{background:#fef9c3;color:#b45309}.sig-l{background:#f1f5f9;color:var(--muted)}
+.pbc-desc{font-size:0.85rem;color:var(--ink);font-weight:500;line-height:1.6}
+.pbc-impact{font-size:0.74rem;color:var(--muted);margin-top:3px;line-height:1.5;font-style:italic}
+.pbc-evid-btn{background:none;border:1px solid var(--border);padding:3px 10px;border-radius:6px;font-size:0.68rem;cursor:pointer;color:var(--muted);margin-top:7px;transition:all .2s;display:inline-flex;align-items:center;gap:4px;font-family:inherit}
+.pbc-evid-btn:hover{border-color:var(--accent);color:var(--accent)}
+.pbc-evid{display:none;margin-top:8px;border-radius:7px;overflow:hidden;border:1px solid var(--border)}
+.pbc-evid.open{display:block}
+.evid-row{padding:8px 12px;font-family:'IBM Plex Mono',monospace;font-size:0.73rem;line-height:1.6}
+.evid-del-row{background:var(--pink-bg);border-bottom:1px solid var(--pink-border)}
+.evid-add-row{background:var(--purple-bg)}
+.evid-lbl{font-size:0.58rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:3px;opacity:.55}
+.evid-del-row .evid-lbl{color:var(--pink)}
+.evid-add-row .evid-lbl{color:var(--purple)}
+.evid-del-text{color:var(--pink);text-decoration:line-through}
+.evid-add-text{color:var(--purple)}
+
+@media print{#api-banner,.rh-r{display:none!important}}
 </style>
 </head>
 <body>
 
-<!-- ═══ API BANNER ═══ -->
+<!-- API BANNER -->
 <div id="api-banner">
   <div class="ab-left">
     <div class="ab-icon">⚡</div>
     <div>
-      <div class="ab-title">Groq API Key &nbsp;<span style="background:rgba(255,255,255,.13);padding:2px 9px;border-radius:10px;font-size:0.68rem">FREE · Works in India · Fast</span></div>
-      <div class="ab-sub">Get free key → <a href="https://console.groq.com/keys" target="_blank">console.groq.com/keys</a> → Sign in with Google → Create API Key</div>
+      <div class="ab-title">Groq API Key &nbsp;<span style="background:rgba(255,255,255,.13);padding:2px 8px;border-radius:10px;font-size:0.67rem">FREE · Works in India</span></div>
+      <div class="ab-sub">Get key → <a href="https://console.groq.com/keys" target="_blank">console.groq.com/keys</a> → Sign in with Google → Create API Key</div>
     </div>
   </div>
   <div class="ab-right">
@@ -271,21 +235,20 @@ a:hover{text-decoration:underline}
   </div>
 </div>
 
-<!-- ═══ UPLOAD PHASE ═══ -->
+<!-- UPLOAD -->
 <div id="phase-upload" class="phase active">
   <div class="logo">
     <h1>📄 AIP Document Comparison Engine</h1>
-    <p>Precision AI comparison for state &amp; government publications<br>Bilingual documents, scanned pages, tables &amp; charts — all handled.</p>
+    <p>Page-by-page AI comparison for state &amp; government publications<br>Bilingual documents, scanned pages &amp; local-language text all handled.</p>
     <div class="feature-pills">
-      <span class="pill pill-blue">🇬🇧 English-only extraction</span>
-      <span class="pill pill-pink">🩷 Pink = Deleted (hover to see)</span>
+      <span class="pill pill-blue">📄 Page-by-page results</span>
+      <span class="pill pill-pink">🩷 Pink = Deleted (hover)</span>
       <span class="pill pill-purple">💜 Purple = Added</span>
-      <span class="pill pill-gray">🔍 Side-by-side PDF view</span>
-      <span class="pill pill-gray">🖨 Scanned page support</span>
-      <span class="pill pill-gray">⬇ Download HTML report</span>
+      <span class="pill pill-green">🌐 Smart language detection</span>
+      <span class="pill pill-gray">🖨 Scanned PDF support</span>
+      <span class="pill pill-gray">⬇ Download report</span>
     </div>
   </div>
-
   <div class="upload-grid">
     <div class="drop-zone" id="dz1" onclick="document.getElementById('f1').click()">
       <input type="file" id="f1" accept=".pdf" onchange="handleFile(this,'1')">
@@ -304,26 +267,25 @@ a:hover{text-decoration:underline}
       <div class="dz-fn" id="fn2"></div>
     </div>
   </div>
-
   <button class="cmp-btn" id="compareBtn" disabled onclick="startComparison()">🔍 Compare Documents</button>
 </div>
 
-<!-- ═══ PROCESSING PHASE ═══ -->
+<!-- PROCESSING -->
 <div id="phase-process" class="phase">
   <div class="proc-icon">⚙️</div>
   <div class="proc-h" id="proc-h">Analysing Documents…</div>
-  <div class="proc-sub" id="proc-sub">Please wait — large documents may take a few minutes</div>
+  <div class="proc-sub" id="proc-sub">Processing page by page — large documents may take a few minutes</div>
   <div class="proc-progress"><div class="proc-bar" id="procBar"></div></div>
   <div class="proc-steps">
-    <div class="ps" id="step1"><span class="si">📖</span><span id="s1t">Extracting English text from both PDFs…</span></div>
-    <div class="ps" id="step2"><span class="si">🔗</span><span id="s2t">Matching sections by content similarity…</span></div>
-    <div class="ps" id="step3"><span class="si">🤖</span><span id="s3t">AI comparing sections…</span></div>
-    <div class="ps" id="step4"><span class="si">🎨</span><span id="s4t">Rendering annotated side-by-side view…</span></div>
+    <div class="ps" id="step1"><span class="si">📖</span><span id="s1t">Loading PDFs…</span></div>
+    <div class="ps" id="step2"><span class="si">🌐</span><span id="s2t">Detecting language per page…</span></div>
+    <div class="ps" id="step3"><span class="si">🤖</span><span id="s3t">AI comparing page by page…</span></div>
+    <div class="ps" id="step4"><span class="si">🎨</span><span id="s4t">Rendering annotated pages…</span></div>
     <div class="ps" id="step5"><span class="si">✅</span><span id="s5t">Building report…</span></div>
   </div>
 </div>
 
-<!-- ═══ REPORT PHASE ═══ -->
+<!-- REPORT -->
 <div id="phase-report" class="phase">
   <div class="rpt-header">
     <div class="rh-l">
@@ -343,339 +305,179 @@ a:hover{text-decoration:underline}
 </div>
 
 <script>
-// ═══════════════════════════════════════════════════════
-// SETUP
-// ═══════════════════════════════════════════════════════
-pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+let files={1:null,2:null},names={1:'',2:''},apiKey='',reportHTMLCache='',evidCounter=0;
 
-let files = {1:null, 2:null}, names = {1:'', 2:''};
-let apiKey = '', reportHTMLCache = '';
-let annotData = {}; // pageNum -> {left:[{type,text,tip,rect}], right:[...]}
-
-// ── API KEY ──────────────────────────────────────────
+/* ─── Key / file UI ─────────────────────────────── */
 function saveApiKey(){
-  const v = document.getElementById('apiKeyInput').value.trim();
-  if(!v || v.length < 10){ alert('Enter a valid Groq API key (starts with gsk_)'); return; }
-  apiKey = v;
-  const s = document.getElementById('apiStatus');
-  s.textContent = '✓ Set'; s.className = 'ab-status set';
+  const v=document.getElementById('apiKeyInput').value.trim();
+  if(!v||v.length<10){alert('Enter a valid Groq API key (starts with gsk_)');return;}
+  apiKey=v;
+  const s=document.getElementById('apiStatus');s.textContent='✓ Set';s.className='ab-status set';
   updateBtn();
 }
-function updateBtn(){ document.getElementById('compareBtn').disabled = !(files[1] && files[2] && apiKey); }
-
-// ── FILE HANDLING ────────────────────────────────────
-function handleFile(input, num){
-  const f = input.files[0]; if(!f) return;
-  files[num] = f; names[num] = f.name;
-  document.getElementById('fn'+num).textContent = '✓ ' + f.name;
+function updateBtn(){document.getElementById('compareBtn').disabled=!(files[1]&&files[2]&&apiKey);}
+function handleFile(input,num){
+  const f=input.files[0];if(!f)return;
+  files[num]=f;names[num]=f.name;
+  document.getElementById('fn'+num).textContent='✓ '+f.name;
   document.getElementById('dz'+num).classList.add('has-file');
-  input.onclick = e => e.stopPropagation();
-  updateBtn();
+  input.onclick=e=>e.stopPropagation();updateBtn();
 }
-['dz1','dz2'].forEach((id, i) => {
-  const el = document.getElementById(id);
-  el.addEventListener('dragover', e => { e.preventDefault(); el.classList.add('drag-over'); });
-  el.addEventListener('dragleave', () => el.classList.remove('drag-over'));
-  el.addEventListener('drop', e => {
-    e.preventDefault(); el.classList.remove('drag-over');
-    const f = e.dataTransfer.files[0];
-    if(f && f.type === 'application/pdf'){
-      const n = String(i+1); files[n] = f; names[n] = f.name;
-      document.getElementById('fn'+n).textContent = '✓ ' + f.name;
-      el.classList.add('has-file'); updateBtn();
+['dz1','dz2'].forEach((id,i)=>{
+  const el=document.getElementById(id);
+  el.addEventListener('dragover',e=>{e.preventDefault();el.classList.add('drag-over');});
+  el.addEventListener('dragleave',()=>el.classList.remove('drag-over'));
+  el.addEventListener('drop',e=>{
+    e.preventDefault();el.classList.remove('drag-over');
+    const f=e.dataTransfer.files[0];
+    if(f&&f.type==='application/pdf'){
+      const n=String(i+1);files[n]=f;names[n]=f.name;
+      document.getElementById('fn'+n).textContent='✓ '+f.name;
+      el.classList.add('has-file');updateBtn();
     }
   });
 });
-
-// ── PHASES ──────────────────────────────────────────
-function showPhase(id){ document.querySelectorAll('.phase').forEach(p => p.classList.remove('active')); document.getElementById(id).classList.add('active'); }
-function setStep(n, msg){
-  for(let i = 1; i <= 5; i++){
-    const s = document.getElementById('step'+i);
+function showPhase(id){document.querySelectorAll('.phase').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');}
+function setStep(n,msg){
+  for(let i=1;i<=5;i++){
+    const s=document.getElementById('step'+i);
     s.classList.remove('active','done','error');
-    if(i < n) s.classList.add('done');
-    if(i === n){ s.classList.add('active'); if(msg) document.getElementById('s'+i+'t').textContent = msg; }
+    if(i<n)s.classList.add('done');
+    if(i===n){s.classList.add('active');if(msg)document.getElementById('s'+i+'t').textContent=msg;}
   }
-  document.getElementById('procBar').style.width = (n/5*100) + '%';
+  document.getElementById('procBar').style.width=(n/5*100)+'%';
+}
+function sleep(ms){return new Promise(r=>setTimeout(r,ms));}
+function mkEl(tag,cls){const e=document.createElement(tag);if(cls)e.className=cls;return e;}
+function esc(s){if(!s)return '';return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+
+/* ─── LANGUAGE DETECTION ───────────────────────── */
+/*
+  Strategy per page:
+  - Scan every text item character by character
+  - Count English (ASCII 32-126, Latin-extended 160-687) vs Local (Devanagari, Gujarati, Arabic, CJK, etc.)
+  - If page has meaningful English (>25 readable Latin chars) → use English only  (bilingual doc)
+  - If page has NO English but has local script → use local text  (local-only page)
+  - If page is scanned / empty → flag, pass whatever exists
+*/
+function charScript(c){
+  const code=c.charCodeAt(0);
+  if(code>=32&&code<=126)return'eng';           // ASCII printable
+  if(code>=160&&code<=687)return'eng';           // Latin extended
+  if(code>=0x0900&&code<=0x097F)return'local';  // Devanagari (Hindi)
+  if(code>=0x0A80&&code<=0x0AFF)return'local';  // Gujarati
+  if(code>=0x0B00&&code<=0x0B7F)return'local';  // Odia
+  if(code>=0x0C00&&code<=0x0C7F)return'local';  // Telugu
+  if(code>=0x0C80&&code<=0x0CFF)return'local';  // Kannada
+  if(code>=0x0D00&&code<=0x0D7F)return'local';  // Malayalam
+  if(code>=0x0A00&&code<=0x0A7F)return'local';  // Punjabi
+  if(code>=0x0600&&code<=0x06FF)return'local';  // Arabic/Urdu
+  if(code>=0x4E00&&code<=0x9FFF)return'local';  // CJK
+  if(code>=0x3000&&code<=0x303F)return'local';  // CJK punctuation
+  return'other';
 }
 
-// ═══════════════════════════════════════════════════════
-// TEXT EXTRACTION — ENGLISH ONLY
-// ═══════════════════════════════════════════════════════
-function charIsEnglish(c){
-  const code = c.charCodeAt(0);
-  // Accept: ASCII printable (32-126), common punctuation, numbers
-  return code >= 32 && code <= 126;
-}
-function tokenIsEnglish(token){
-  if(!token || !token.trim()) return false;
-  const clean = token.trim();
-  // Accept purely numeric / alphanumeric tokens (codes, IDs, dates)
-  if(/^[\d\s\W]+$/.test(clean)) return true;
-  // For text tokens: require ≥75% ASCII chars
-  const eng = [...clean].filter(charIsEnglish).length;
-  return eng / clean.length >= 0.75;
-}
-function extractEnglish(items){
-  return items
-    .map(it => it.str || '')
-    .filter(s => s.trim())
-    .filter(s => {
-      // Split into words and check majority
-      const words = s.trim().split(/\s+/);
-      const engWords = words.filter(w => tokenIsEnglish(w));
-      return engWords.length / Math.max(words.length, 1) >= 0.6;
-    })
-    .join(' ')
-    .replace(/\s{3,}/g, ' ')
-    .trim();
-}
-function detectScanned(items, pageArea){
-  const textLen = items.reduce((a,i) => a + (i.str||'').trim().length, 0);
-  return textLen < 40 && pageArea > 80000;
-}
-function calcPageScale(vpWidth, vpHeight){
-  // Target rendered width ~900px for readability; clamp between 1.0 and 2.5
-  const target = 900;
-  let scale = target / Math.max(vpWidth, 1);
-  return Math.max(1.0, Math.min(2.5, parseFloat(scale.toFixed(2))));
-}
-async function extractPages(file){
-  const ab = await file.arrayBuffer();
-  const pdf = await pdfjsLib.getDocument({data: ab}).promise;
-  const pages = [];
-  for(let i = 1; i <= pdf.numPages; i++){
-    const page = await pdf.getPage(i);
-    const vp1 = page.getViewport({scale:1});
-    const area = vp1.width * vp1.height;
-    const content = await page.getTextContent();
-    const engText = extractEnglish(content.items);
-    const rawText = content.items.map(x => x.str).join(' ');
-    const scanned = detectScanned(content.items, area);
-    const title = engText.replace(/\s+/g,' ').slice(0,90) || `Page ${i}`;
-    pages.push({ pageNum:i, text:engText, rawText, title, scanned, items:content.items, area, vpW:vp1.width, vpH:vp1.height });
-  }
-  return {pdf, pages};
-}
+function analyzePage(items){
+  let engChars=0,localChars=0,totalChars=0;
+  const engParts=[],localParts=[];
 
-// ═══════════════════════════════════════════════════════
-// SECTION MATCHING
-// ═══════════════════════════════════════════════════════
-function wordSet(text){
-  return new Set(text.toLowerCase().split(/\W+/).filter(w => w.length > 3 && !/^\d+$/.test(w)));
-}
-function similarity(a, b){
-  if(!a||!b) return 0;
-  const wa = wordSet(a.slice(0,800)), wb = wordSet(b.slice(0,800));
-  if(!wa.size && !wb.size) return 1;
-  let c = 0; for(const w of wa) if(wb.has(w)) c++;
-  return c / Math.max(wa.size, wb.size, 1);
-}
-function matchSections(pages1, pages2){
-  const pairs = [], used2 = new Set();
-  for(const p1 of pages1){
-    let best = null, bestScore = 0;
-    for(const p2 of pages2){
-      if(used2.has(p2.pageNum)) continue;
-      const sc = similarity(p1.text, p2.text);
-      if(sc > bestScore){ bestScore = sc; best = p2; }
+  for(const item of items){
+    const s=item.str||'';
+    if(!s.trim())continue;
+    let eRun='',lRun='';
+    for(const c of [...s]){
+      const sc=charScript(c);
+      totalChars++;
+      if(sc==='eng'){engChars++;eRun+=c;}
+      else if(sc==='local'){localChars++;if(eRun.trim()){engParts.push(eRun.trim());eRun='';}lRun+=c;}
+      else{if(eRun.trim()){engParts.push(eRun.trim());eRun='';}if(lRun.trim()){localParts.push(lRun.trim());lRun='';}}
     }
-    if(best && bestScore > 0.10){ pairs.push({a:p1, b:best, score:bestScore}); used2.add(best.pageNum); }
-    else pairs.push({a:p1, b:null, score:0});
+    if(eRun.trim())engParts.push(eRun.trim());
+    if(lRun.trim())localParts.push(lRun.trim());
   }
-  for(const p2 of pages2){ if(!used2.has(p2.pageNum)) pairs.push({a:null, b:p2, score:0}); }
-  return pairs;
+
+  const engText=engParts.join(' ').replace(/\s{2,}/g,' ').trim();
+  const localText=localParts.join(' ').replace(/\s{2,}/g,' ').trim();
+  const fullText=items.map(i=>i.str||'').join(' ').replace(/\s{2,}/g,' ').trim();
+
+  // "Has meaningful English" = >25 actual Latin alpha chars
+  const engAlpha=engText.replace(/[^a-zA-Z]/g,'').length;
+  const hasEnglish=engAlpha>25;
+  const hasLocal=localText.length>15;
+  const isScanned=fullText.length<30;
+
+  // What to send to AI
+  let textForAI='';
+  if(hasEnglish) textForAI=engText;          // bilingual or English-only → English
+  else if(hasLocal) textForAI=localText;     // local-only page → send local
+  else textForAI=fullText;                   // fallback
+
+  // Language label for UI
+  let langMode='unknown';
+  if(hasEnglish&&hasLocal) langMode='bilingual';
+  else if(hasEnglish)      langMode='english';
+  else if(hasLocal)        langMode='local';
+
+  const title=(hasEnglish?engText:localText||fullText).replace(/\s+/g,' ').slice(0,85);
+  return{engText,localText,fullText,textForAI,hasEnglish,hasLocal,isScanned,langMode,title};
 }
 
-// ═══════════════════════════════════════════════════════
-// MAIN COMPARISON FLOW
-// ═══════════════════════════════════════════════════════
-async function startComparison(){
-  if(!apiKey){ alert('Please enter your Groq API key first.'); return; }
-  showPhase('phase-process');
-  annotData = {};
-  try{
-    // STEP 1 — Extract
-    setStep(1,'Extracting English text from both PDFs…');
-    const r1 = await extractPages(files[1]);
-    const r2 = await extractPages(files[2]);
-    const pages1 = r1.pages, pages2 = r2.pages;
-    const pdfDoc1 = r1.pdf,  pdfDoc2 = r2.pdf;
-    const scannedCt = [...pages1,...pages2].filter(p=>p.scanned).length;
-    if(scannedCt) document.getElementById('s1t').textContent = `Text extracted · ${scannedCt} scanned page(s) detected`;
+/* ─── PDF LOADING ─────────────────────────────── */
+async function loadPDF(file){
+  const ab=await file.arrayBuffer();
+  return pdfjsLib.getDocument({data:ab}).promise;
+}
+async function getPageData(pdf,pageNum){
+  const page=await pdf.getPage(pageNum);
+  const vp0=page.getViewport({scale:1});
+  const content=await page.getTextContent();
+  const analysis=analyzePage(content.items);
+  return{pageNum,items:content.items,vpW:vp0.width,vpH:vp0.height,...analysis};
+}
+function calcScale(vpW){
+  // Each column is ~half the viewport. Target canvas ~800px.
+  return Math.max(1.0,Math.min(2.4,parseFloat((780/Math.max(vpW,1)).toFixed(2))));
+}
+async function renderCanvas(pdf,pageNum,vpW){
+  if(!pdf||pageNum>pdf.numPages)return null;
+  const page=await pdf.getPage(pageNum);
+  const scale=calcScale(vpW||600);
+  const vp=page.getViewport({scale});
+  const canvas=document.createElement('canvas');
+  canvas.width=vp.width;canvas.height=vp.height;canvas.style.maxWidth='100%';
+  await page.render({canvasContext:canvas.getContext('2d'),viewport:vp}).promise;
+  const tc=await page.getTextContent();
+  return{canvas,vp,tc};
+}
 
-    // STEP 2 — Match
-    setStep(2,'Matching sections by content similarity…');
-    const pairs = matchSections(pages1, pages2);
-    const toCompare = pairs.filter(p => {
-      if(!p.a || !p.b) return true;
-      if(p.b.scanned) return false;
-      return similarity(p.a.text, p.b.text) < 0.97;
-    });
-    document.getElementById('s2t').textContent = `Matched ${pairs.length} section pairs · ${toCompare.length} need comparison`;
-
-    // STEP 3 — AI Compare
-    setStep(3,`AI comparing ${toCompare.length} section pair(s)…`);
-    const allChanges = [], summaryNotes = [];
-    for(let i = 0; i < toCompare.length; i++){
-      const pair = toCompare[i];
-      document.getElementById('s3t').textContent = `AI comparing section ${i+1}/${toCompare.length}…`;
-      if(!pair.a){
-        // Entire page is new
-        allChanges.push({type:'added', page_a:null, page_b:pair.b.pageNum, section:pair.b.title.slice(0,65),
-          highlight_text:'', old_snippet:'', new_snippet:pair.b.text.slice(0,120),
-          description:`New section added: "${pair.b.title.slice(0,55)}"`,
-          significance:'high', operationalImpact:'New content — review for applicability'});
-        continue;
-      }
-      if(!pair.b){
-        allChanges.push({type:'deleted', page_a:pair.a.pageNum, page_b:pair.a.pageNum, section:pair.a.title.slice(0,65),
-          highlight_text:'', old_snippet:pair.a.text.slice(0,120), new_snippet:'',
-          description:`Section removed: "${pair.a.title.slice(0,55)}"`,
-          significance:'high', operationalImpact:'Content removed — verify not operationally required'});
-        continue;
-      }
-      try{
-        const res = await compareSection(pair);
-        if(res.summary) summaryNotes.push(res.summary);
-        (res.changes||[]).forEach(c => allChanges.push({...c, page_a:pair.a.pageNum, page_b:pair.b.pageNum, section:(c.section||pair.b.title).slice(0,65)}));
-      } catch(err){ console.warn('Section error:', err.message); }
-      if(i < toCompare.length - 1) await sleep(1200);
+/* ─── CANVAS ANNOTATION ──────────────────────── */
+function findRect(tc,searchText,vp){
+  if(!searchText||searchText.trim().length<3)return null;
+  const needle=searchText.trim().toLowerCase();
+  let full='';const map=[];
+  for(const item of tc.items){const s=item.str||'';map.push({start:full.length,end:full.length+s.length,item});full+=s+' ';}
+  const hay=full.toLowerCase();
+  for(let len=needle.length;len>=Math.min(5,needle.length);len--){
+    const sub=needle.slice(0,len);
+    const idx=hay.indexOf(sub);
+    if(idx===-1)continue;
+    const hits=map.filter(m=>m.end>idx&&m.start<idx+sub.length);
+    if(!hits.length)continue;
+    let mnX=Infinity,mnY=Infinity,mxX=-Infinity,mxY=-Infinity;
+    for(const{item}of hits){
+      const tx=item.transform[4],ty=item.transform[5],fs=Math.abs(item.transform[3])||10,w=item.width||30;
+      const pts=[vp.convertToViewportPoint(tx,ty),vp.convertToViewportPoint(tx+w,ty),vp.convertToViewportPoint(tx,ty+fs),vp.convertToViewportPoint(tx+w,ty+fs)];
+      for(const[px,py]of pts){mnX=Math.min(mnX,px);mnY=Math.min(mnY,py);mxX=Math.max(mxX,px);mxY=Math.max(mxY,py);}
     }
-
-    const stats = {
-      deleted : allChanges.filter(c => c.type==='deleted').length,
-      added   : allChanges.filter(c => c.type==='added').length,
-      modified: allChanges.filter(c => c.type==='modified').length,
-    };
-    const sigCounts = { high: allChanges.filter(c=>c.significance==='high').length, med: allChanges.filter(c=>c.significance==='medium').length, low: allChanges.filter(c=>c.significance==='low').length };
-
-    // STEP 4 — Render PDFs
-    setStep(4,'Rendering side-by-side annotated pages…');
-    await renderReport({summary:summaryNotes, stats, sigCounts, changes:allChanges}, pdfDoc1, pdfDoc2, pages1, pages2);
-
-    // STEP 5 — Done
-    setStep(5,'Report ready!');
-    await sleep(300);
-    showPhase('phase-report');
-
-  } catch(err){
-    console.error(err);
-    alert('Error: ' + err.message);
-    showPhase('phase-upload');
-  }
-}
-
-function sleep(ms){ return new Promise(r => setTimeout(r, ms)); }
-
-// ═══════════════════════════════════════════════════════
-// AI COMPARISON — GROQ
-// ═══════════════════════════════════════════════════════
-async function compareSection(pair){
-  const t1 = pair.a.text.slice(0, 1600).trim();
-  const t2 = pair.b.text.slice(0, 1600).trim();
-  const prompt = `You are an expert government document auditor. Your job is to find EVERY real difference between two versions of the same official document section. Focus only on English text.
-
-SECTION (Page ${pair.b.pageNum}): "${pair.b.title.slice(0,70)}"
-
-── OLD VERSION ──
-${t1}
-
-── NEW VERSION ──
-${t2}
-
-INSTRUCTIONS:
-• Find ALL genuine differences: changed numbers, dates, names, codes, amounts, procedures, legal language.
-• Pay special attention to: quantities, percentages, dates, deadlines, rates, thresholds, reference numbers, contact details, addresses.
-• "old_snippet": exact verbatim phrase from OLD text (8–30 chars, must exist word-for-word in OLD).
-• "new_snippet": exact verbatim phrase from NEW text (8–30 chars, must exist word-for-word in NEW).
-• "highlight_text": exact phrase from NEW doc to visually highlight on the page (5–22 chars, verbatim in NEW). For deletions, use a nearby phrase from NEW that is close to where the deleted text was.
-• "significance": "high" for numerical/date/legal/procedural changes; "medium" for rewording; "low" for minor phrasing.
-• "type": "deleted"=only in OLD, "added"=only in NEW, "modified"=exists in both but changed.
-• "section": short label for what part of the document this is (e.g. "Table 3 – Rates", "Section 2.1", "Contact Details").
-• DO NOT report whitespace-only differences or identical text.
-
-Return ONLY valid JSON — no markdown, no prose:
-{"summary":"one-sentence summary of main changes, or empty string","changes":[{"type":"modified","section":"section name","highlight_text":"exact phrase in new","old_snippet":"exact from old","new_snippet":"exact from new","description":"clear plain-English description of exactly what changed","significance":"high","operationalImpact":"one sentence on why this matters"}]}
-
-If no real differences exist: {"summary":"","changes":[]}`;
-
-  return fetchGroq(prompt);
-}
-
-async function fetchGroq(prompt, attempt=1){
-  const resp = await fetch('https://api.groq.com/openai/v1/chat/completions',{
-    method:'POST',
-    headers:{'Content-Type':'application/json','Authorization':'Bearer '+apiKey},
-    body: JSON.stringify({
-      model:'llama-3.3-70b-versatile',
-      messages:[
-        {role:'system', content:'You are a government document auditor. Return ONLY valid JSON. Absolutely no markdown fences, no text outside the JSON object.'},
-        {role:'user', content:prompt}
-      ],
-      temperature:0, max_tokens:1200,
-      response_format:{type:'json_object'}
-    })
-  });
-  if(!resp.ok){
-    const e = await resp.json().catch(()=>({}));
-    const msg = e?.error?.message || resp.statusText;
-    if(resp.status===429 && attempt<=3){
-      const wait = 18*attempt;
-      document.getElementById('s3t').textContent = `Rate limit — retrying in ${wait}s (${attempt}/3)…`;
-      await sleep(wait*1000);
-      return fetchGroq(prompt, attempt+1);
-    }
-    throw new Error(msg);
-  }
-  const data = await resp.json();
-  const text = data?.choices?.[0]?.message?.content || '{}';
-  try{ return JSON.parse(text.replace(/```json|```/g,'').trim()); }
-  catch(e){ const m = text.match(/\{[\s\S]*\}/); if(m) return JSON.parse(m[0]); return {summary:'',changes:[]}; }
-}
-
-// ═══════════════════════════════════════════════════════
-// CANVAS HIGHLIGHT HELPERS
-// ═══════════════════════════════════════════════════════
-function findTextRect(textContent, searchText, viewport){
-  const needle = searchText.trim().toLowerCase();
-  if(needle.length < 3) return null;
-  let full=''; const map=[];
-  for(const item of textContent.items){
-    const s = item.str || '';
-    map.push({start:full.length, end:full.length+s.length, item});
-    full += s + ' ';
-  }
-  const hay = full.toLowerCase();
-  // Try progressively shorter matches
-  for(let len = needle.length; len >= Math.min(5, needle.length); len--){
-    const sub = needle.slice(0, len);
-    const idx = hay.indexOf(sub);
-    if(idx === -1) continue;
-    const hits = map.filter(m => m.end > idx && m.start < idx + sub.length);
-    if(!hits.length) continue;
-    let minX=Infinity,minY=Infinity,maxX=-Infinity,maxY=-Infinity;
-    for(const {item} of hits){
-      const tx=item.transform[4], ty=item.transform[5];
-      const fs=Math.abs(item.transform[3])||10, w=item.width||30;
-      const pts=[
-        viewport.convertToViewportPoint(tx,ty),
-        viewport.convertToViewportPoint(tx+w,ty),
-        viewport.convertToViewportPoint(tx,ty+fs),
-        viewport.convertToViewportPoint(tx+w,ty+fs)
-      ];
-      for(const [px,py] of pts){ minX=Math.min(minX,px);minY=Math.min(minY,py);maxX=Math.max(maxX,px);maxY=Math.max(maxY,py); }
-    }
-    const pad=4;
-    return {x:minX-pad, y:minY-pad, w:maxX-minX+pad*2, h:maxY-minY+pad*2};
+    const pad=4,r={x:mnX-pad,y:mnY-pad,w:mxX-mnX+pad*2,h:mxY-mnY+pad*2};
+    if(r.w>4&&r.h>4)return r;
   }
   return null;
 }
-function drawBox(ctx, rect, col){
-  const {x,y,w,h} = rect;
-  if(w<4||h<4) return;
-  const r=3;
-  ctx.save();
+function drawBox(ctx,rect,col){
+  const{x,y,w,h}=rect;if(w<4||h<4)return;
+  const r=3;ctx.save();
   ctx.fillStyle=`rgba(${col.r},${col.g},${col.b},0.18)`;
   ctx.strokeStyle=`rgba(${col.r},${col.g},${col.b},0.9)`;
   ctx.lineWidth=2.5;
@@ -684,379 +486,422 @@ function drawBox(ctx, rect, col){
   ctx.lineTo(x+w,y+h-r);ctx.quadraticCurveTo(x+w,y+h,x+w-r,y+h);
   ctx.lineTo(x+r,y+h);ctx.quadraticCurveTo(x,y+h,x,y+h-r);
   ctx.lineTo(x,y+r);ctx.quadraticCurveTo(x,y,x+r,y);
-  ctx.closePath();ctx.fill();ctx.stroke();
-  ctx.restore();
+  ctx.closePath();ctx.fill();ctx.stroke();ctx.restore();
 }
-const PINK={r:212,g:21,b:107}, PURPLE={r:109,g:40,b:217}, ORANGE={r:194,g:65,b:12};
+const PINK={r:212,g:21,b:107},PURPLE={r:109,g:40,b:217},ORANGE={r:194,g:65,b:12};
 
-// ═══════════════════════════════════════════════════════
-// RENDER REPORT
-// ═══════════════════════════════════════════════════════
-async function renderReport(result, pdfDoc1, pdfDoc2, pages1, pages2){
-  const now = new Date().toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'});
-  const {stats, sigCounts, changes} = result;
-  const total = stats.deleted + stats.added + stats.modified;
+/* ─── SIMILARITY ─────────────────────────────── */
+function similarity(a,b){
+  if(!a&&!b)return 1;if(!a||!b)return 0;
+  const sa=new Set(a.toLowerCase().split(/\W+/).filter(w=>w.length>3));
+  const sb=new Set(b.toLowerCase().split(/\W+/).filter(w=>w.length>3));
+  if(!sa.size&&!sb.size)return 1;
+  let c=0;for(const w of sa)if(sb.has(w))c++;
+  return c/Math.max(sa.size,sb.size,1);
+}
 
-  document.getElementById('rh-sub').textContent = `${names[1]} → ${names[2]} · ${now}`;
-  document.getElementById('b-del').innerHTML = `🩷 ${stats.deleted} Deleted`;
-  document.getElementById('b-add').innerHTML = `💜 ${stats.added} Added`;
-  document.getElementById('b-mod').innerHTML = `🔶 ${stats.modified} Modified`;
+/* ─── AI COMPARISON ──────────────────────────── */
+async function compareOnePage(pg1,pg2,pageNum){
+  const t1=pg1.textForAI.slice(0,1600);
+  const t2=pg2.textForAI.slice(0,1600);
+  const langNote=pg1.langMode==='local'||pg2.langMode==='local'
+    ?`This page contains local language script (Gujarati/Hindi/etc). Compare all content faithfully — numbers, names, dates in any script are important.`
+    :`This page is in English (or bilingual with English extracted).`;
 
-  const body = document.getElementById('rptBody');
-  body.innerHTML = '';
+  const prompt=`You are an expert government document auditor. Compare page ${pageNum} of two versions of an official document.
 
-  // ── SUMMARY ONE-PAGE ──────────────────────────────────
-  const sumCard = el('div','summary-page');
-  const heroDiv = el('div','sp-hero');
-  const heroTop = el('div','sp-hero-top');
-  // Title + meta
-  const heroMeta = el('div');
-  heroMeta.innerHTML = `<div class="sp-title">📋 Comparison Summary</div><div class="sp-meta">${esc(names[1])} &nbsp;→&nbsp; ${esc(names[2])} &nbsp;·&nbsp; ${now}</div>`;
-  // Stats
-  const statsDiv = el('div','sp-stats');
-  [{n:stats.deleted,l:'Deleted',cls:'sp-stat-del'},{n:stats.added,l:'Added',cls:'sp-stat-add'},{n:stats.modified,l:'Modified',cls:'sp-stat-mod'},{n:total,l:'Total Changes',cls:'sp-stat-tot'}].forEach(s=>{
-    statsDiv.innerHTML+=`<div class="sp-stat ${s.cls}"><div class="sp-stat-n">${s.n}</div><div class="sp-stat-l">${s.l}</div></div>`;
+${langNote}
+
+── OLD VERSION (Page ${pageNum}) ──
+${t1||(pg1.isScanned?'[Scanned/image page — no text extracted]':'(empty page)')}
+
+── NEW VERSION (Page ${pageNum}) ──
+${t2||(pg2.isScanned?'[Scanned/image page — no text extracted]':'(empty page)')}
+
+Find ALL genuine differences: changed numbers, dates, names, amounts, rates, codes, procedures, legal text, deadlines, addresses, contact details, table values, headings.
+
+Rules:
+• "old_snippet": verbatim short phrase from OLD (8–35 chars, exact words).
+• "new_snippet": verbatim short phrase from NEW (8–35 chars, exact words).
+• "highlight_text": exact phrase in NEW to visually highlight (5–20 chars, verbatim in NEW). For pure deletions, use a nearby phrase still present in NEW.
+• "significance": "high" for number/date/legal/rate changes; "medium" for rewording; "low" for minor.
+• "type": "deleted"|"added"|"modified".
+• DO NOT report whitespace-only or cosmetic formatting differences.
+
+Return ONLY valid JSON — no markdown, no explanation:
+{"page_summary":"1–2 sentence plain-English summary of ALL changes on this specific page, or 'No changes detected on this page.'","changes":[{"type":"modified","highlight_text":"exact phrase in new","old_snippet":"from old","new_snippet":"from new","description":"clear description of exactly what changed","significance":"high","operationalImpact":"one sentence why this matters"}]}`;
+
+  return fetchGroq(prompt);
+}
+
+async function fetchGroq(prompt,attempt=1){
+  const resp=await fetch('https://api.groq.com/openai/v1/chat/completions',{
+    method:'POST',
+    headers:{'Content-Type':'application/json','Authorization':'Bearer '+apiKey},
+    body:JSON.stringify({
+      model:'llama-3.3-70b-versatile',
+      messages:[
+        {role:'system',content:'You are a government document auditor. Return ONLY valid JSON. No markdown fences, no text outside the JSON object.'},
+        {role:'user',content:prompt}
+      ],
+      temperature:0,max_tokens:1200,
+      response_format:{type:'json_object'}
+    })
   });
-  heroTop.appendChild(heroMeta); heroTop.appendChild(statsDiv); heroDiv.appendChild(heroTop);
-  // Severity pills
-  const sevDiv = el('div','sp-severity');
-  sevDiv.innerHTML=`<span class="sp-sev-label">Significance:</span>
-    <span class="sev-pill sev-high">🔴 ${sigCounts.high} High</span>
-    <span class="sev-pill sev-med">🟡 ${sigCounts.med} Medium</span>
-    <span class="sev-pill sev-low">⚪ ${sigCounts.low} Low</span>`;
-  heroDiv.appendChild(sevDiv); sumCard.appendChild(heroDiv);
-
-  // Body
-  const spBody = el('div','sp-body');
-  // Overview paragraph
-  const overview = el('div','sp-overview');
-  overview.innerHTML = total===0
-    ? 'No significant differences detected between the two document versions.'
-    : `<strong>${total} change${total!==1?'s':''} identified</strong> between the two versions — ${stats.deleted} deletion${stats.deleted!==1?'s':''}, ${stats.added} addition${stats.added!==1?'s':''}, and ${stats.modified} modification${stats.modified!==1?'s':''}. ${sigCounts.high} change${sigCounts.high!==1?'s':''} are high significance and require immediate review.`
-    + (result.summary.length ? ' Key notes: ' + result.summary.slice(0,2).join('. ') : '');
-  spBody.appendChild(overview);
-
-  // Two-column key changes
-  if(changes.length>0){
-    const cols = el('div','sp-cols');
-    const delsMods = changes.filter(c=>c.type!=='added').slice(0,6);
-    const adds = changes.filter(c=>c.type==='added').slice(0,6);
-    [['🩷 Deletions &amp; Modifications', delsMods], ['💜 Additions', adds]].forEach(([head,list])=>{
-      const col=el('div');
-      col.innerHTML=`<div class="sp-col-head">${head}</div>`;
-      if(!list.length){ col.innerHTML+=`<div style="font-size:0.8rem;color:var(--muted);padding:8px 0">None detected</div>`; }
-      list.forEach(c=>{
-        const cls=c.type==='deleted'?'skc-del':c.type==='added'?'skc-add':'skc-mod';
-        const icon=c.type==='deleted'?'🩷':c.type==='added'?'💜':'🔶';
-        col.innerHTML+=`<div class="sp-kchange ${cls}"><span class="skc-icon">${icon}</span><div class="skc-text"><strong>Pg ${c.page_b||'?'}${c.section?(' — '+esc(c.section.slice(0,30))):''}</strong><br>${esc(c.description.slice(0,90))}</div></div>`;
-      });
-      cols.appendChild(col);
-    });
-    spBody.appendChild(cols);
+  if(!resp.ok){
+    const e=await resp.json().catch(()=>({}));
+    if(resp.status===429&&attempt<=3){
+      const wait=18*attempt;
+      document.getElementById('s3t').textContent=`Rate limit — retrying in ${wait}s (${attempt}/3)…`;
+      await sleep(wait*1000);return fetchGroq(prompt,attempt+1);
+    }
+    throw new Error(e?.error?.message||resp.statusText);
   }
-  sumCard.appendChild(spBody);
-  body.appendChild(sumCard);
+  const data=await resp.json();
+  const text=data?.choices?.[0]?.message?.content||'{}';
+  try{return JSON.parse(text.replace(/```json|```/g,'').trim());}
+  catch(e){const m=text.match(/\{[\s\S]*\}/);if(m)return JSON.parse(m[0]);return{page_summary:'',changes:[]};}
+}
 
-  if(total===0){
-    const nc=el('div','no-changes-page');
-    nc.innerHTML='🎉 <strong>No differences found.</strong> Both documents appear identical.';
-    body.appendChild(nc);
-  } else {
-    // ── HOW-TO-READ ──────────────────────────────────
-    const howto = el('div','howto-bar');
-    howto.innerHTML=`
-      <div class="ht-item"><div class="ht-swatch hts-del"></div><span><strong>Pink box</strong> = deleted text &nbsp;<em>(hover to see what was removed &amp; what replaced it)</em></span></div>
-      <div class="ht-item"><div class="ht-swatch hts-add"></div><span><strong>Purple box</strong> = new addition</span></div>
-      <div class="ht-item"><div class="ht-swatch hts-mod"></div><span><strong>Orange box</strong> = modified value</span></div>`;
-    body.appendChild(howto);
+/* ─── MAIN FLOW ───────────────────────────────── */
+async function startComparison(){
+  if(!apiKey){alert('Please enter your Groq API key first.');return;}
+  showPhase('phase-process');evidCounter=0;
 
-    // ── DETAILED CHANGE LIST ──────────────────────────
-    const slbl = el('div','sec-label'); slbl.textContent = `All Changes — ${total} total`;
-    body.appendChild(slbl);
-    changes.forEach((c,idx)=>{
-      const icon=c.type==='deleted'?'🩷':c.type==='added'?'💜':'🔶';
-      const tcls=c.type==='deleted'?'ct-del':c.type==='added'?'ct-add':'ct-mod';
-      const tLabel=c.type==='deleted'?'Deleted':c.type==='added'?'Added':'Modified';
-      const sigcls=c.significance==='high'?'sig-high':c.significance==='low'?'sig-low':'sig-med';
-      const sigLabel=c.significance==='high'?'🔴 High':c.significance==='low'?'⚪ Low':'🟡 Medium';
-      const hasEvid = c.old_snippet || c.new_snippet;
-      const vid = 'ev'+idx;
-      const item=el('div','ch-item');
-      item.innerHTML=`<div class="ch-top">
-        <div class="ch-icon">${icon}</div>
-        <div class="ch-c">
-          <div class="ch-meta">
-            <span class="ch-type ${tcls}">${tLabel}</span>
-            <span class="ch-pg">📄 Page ${c.page_b||'?'}${c.section?' — '+esc(c.section.slice(0,40)):''}</span>
-            <span class="ch-sig ${sigcls}">${sigLabel}</span>
-          </div>
-          <div class="ch-desc">${esc(c.description)}</div>
-          ${c.operationalImpact?`<div class="ch-impact">✈ ${esc(c.operationalImpact)}</div>`:''}
-          ${hasEvid?`<button class="ch-evid-btn" onclick="toggleEvid('${vid}',this)">▼ Show evidence</button>`:''}
-        </div>
-      </div>
-      ${hasEvid?`<div class="ch-evid" id="${vid}">
-        ${c.old_snippet?`<div class="evid-row evid-del"><div class="evid-lbl">Removed from original</div><div class="evid-del-text">${esc(c.old_snippet)}</div></div>`:''}
-        ${c.new_snippet?`<div class="evid-row evid-add"><div class="evid-lbl">In updated version</div><div class="evid-add-text">${esc(c.new_snippet)}</div></div>`:''}
-      </div>`:''}`;
-      body.appendChild(item);
-    });
-  }
+  try{
+    // Step 1
+    setStep(1,'Loading PDFs…');
+    const[pdf1,pdf2]=await Promise.all([loadPDF(files[1]),loadPDF(files[2])]);
+    const maxPages=Math.max(pdf1.numPages,pdf2.numPages);
+    document.getElementById('s1t').textContent=`Loaded — ${pdf1.numPages} pages (original) · ${pdf2.numPages} pages (updated)`;
 
-  // ── ANNOTATED SIDE-BY-SIDE PDF PAGES ──────────────
-  const plbl = el('div','sec-label');
-  plbl.textContent = `Side-by-Side Annotated View — ${Math.max(pdfDoc1.numPages, pdfDoc2.numPages)} pages`;
-  body.appendChild(plbl);
+    // Step 2 — extract + language detect
+    setStep(2,'Extracting text and detecting language per page…');
+    const pages1=[],pages2=[];
+    for(let p=1;p<=pdf1.numPages;p++)pages1.push(await getPageData(pdf1,p));
+    for(let p=1;p<=pdf2.numPages;p++)pages2.push(await getPageData(pdf2,p));
+    const localOnly=[...pages1,...pages2].filter(p=>p.hasLocal&&!p.hasEnglish).length;
+    const bilingual=[...pages1,...pages2].filter(p=>p.hasLocal&&p.hasEnglish).length;
+    document.getElementById('s2t').textContent=`${localOnly} local-language-only page(s) · ${bilingual} bilingual page(s) detected`;
 
-  const maxPages = Math.max(pdfDoc1.numPages, pdfDoc2.numPages);
-  for(let pNum=1; pNum<=maxPages; pNum++){
-    const pg1 = pages1.find(p=>p.pageNum===pNum)||null;
-    const pg2 = pages2.find(p=>p.pageNum===pNum)||null;
-    const pageChanges = changes.filter(c=>c.page_b===pNum || c.page_a===pNum);
-    const isScanned = (pg1?.scanned||false)||(pg2?.scanned||false);
+    // Step 3 — AI page by page
+    setStep(3,`AI comparing page 1/${maxPages}…`);
+    const pageResults=[];
+    let totalDel=0,totalAdd=0,totalMod=0;
 
-    // Render both canvases
-    const renderData = await renderBothPages(pdfDoc1, pdfDoc2, pNum, pg1, pg2);
+    for(let p=1;p<=maxPages;p++){
+      document.getElementById('s3t').textContent=`AI comparing page ${p} of ${maxPages}…`;
+      const pg1=pages1.find(x=>x.pageNum===p)||null;
+      const pg2=pages2.find(x=>x.pageNum===p)||null;
+      let result={page_summary:'',changes:[]};
 
-    // Build annotation rects for each side
-    const leftAnnots=[], rightAnnots=[];
-    for(const c of pageChanges){
-      if((c.type==='deleted'||c.type==='modified') && c.old_snippet && renderData.tc1 && renderData.vp1){
-        const rect = findTextRect(renderData.tc1, c.old_snippet, renderData.vp1);
-        if(rect) leftAnnots.push({type:c.type, rect, oldText:c.old_snippet, newText:c.new_snippet, desc:c.description});
-      }
-      if(c.highlight_text && renderData.tc2 && renderData.vp2){
-        const rect = findTextRect(renderData.tc2, c.highlight_text, renderData.vp2);
-        if(!rect && c.new_snippet && renderData.tc2){
-          const r2 = findTextRect(renderData.tc2, c.new_snippet, renderData.vp2);
-          if(r2) rightAnnots.push({type:c.type, rect:r2, oldText:c.old_snippet, newText:c.new_snippet||c.highlight_text, desc:c.description});
-        } else if(rect){
-          rightAnnots.push({type:c.type, rect, oldText:c.old_snippet, newText:c.new_snippet||c.highlight_text, desc:c.description});
+      if(!pg1){
+        result={page_summary:'This entire page is new in the updated document.',
+          changes:[{type:'added',highlight_text:'',old_snippet:'',new_snippet:(pg2.textForAI||'').slice(0,80),description:'Entire page added in updated version',significance:'high',operationalImpact:'New page — review all content'}]};
+      } else if(!pg2){
+        result={page_summary:'This entire page was removed in the updated document.',
+          changes:[{type:'deleted',highlight_text:'',old_snippet:(pg1.textForAI||'').slice(0,80),new_snippet:'',description:'Entire page removed from updated version',significance:'high',operationalImpact:'Page removed — verify not operationally required'}]};
+      } else if(pg1.isScanned&&pg2.isScanned){
+        result={page_summary:'Both versions of this page are scanned images — text comparison not possible.',changes:[]};
+      } else {
+        const sim=similarity(pg1.textForAI,pg2.textForAI);
+        if(sim>=0.97){
+          result={page_summary:'No changes detected on this page.',changes:[]};
+        } else {
+          try{result=await compareOnePage(pg1,pg2,p);}
+          catch(err){result={page_summary:'Comparison error: '+err.message,changes:[]};}
+          if(p<maxPages)await sleep(1100);
         }
       }
-    }
 
-    // Draw boxes on canvases
-    if(renderData.c1){
-      const ctx1=renderData.c1.getContext('2d');
-      leftAnnots.forEach(a=>{
-        const col=a.type==='deleted'?PINK:a.type==='added'?PURPLE:ORANGE;
-        drawBox(ctx1,a.rect,col);
+      result.changes.forEach(c=>{
+        if(c.type==='deleted')totalDel++;
+        else if(c.type==='added')totalAdd++;
+        else totalMod++;
       });
-    }
-    if(renderData.c2){
-      const ctx2=renderData.c2.getContext('2d');
-      rightAnnots.forEach(a=>{
-        const col=a.type==='deleted'?PINK:a.type==='added'?PURPLE:ORANGE;
-        drawBox(ctx2,a.rect,col);
-      });
+      pageResults.push({pageNum:p,pg1,pg2,...result});
     }
 
-    // Build wrap element
-    const wrap=el('div','pdf-compare-section');
+    // Step 4 — render
+    setStep(4,'Rendering annotated side-by-side pages…');
+    await buildReport({totalDel,totalAdd,totalMod,pageResults,maxPages},pdf1,pdf2);
 
-    // Header
-    const phdr=el('div','pdf-pg-hdr');
-    const ptitle=el('span','pdf-pg-title');
-    ptitle.textContent=`Page ${pNum}${pg2?' — '+pg2.title.slice(0,60):''}`;
-    phdr.appendChild(ptitle);
-    if(pageChanges.length||isScanned){
-      const tags=el('div','pdf-pg-tags');
-      const d=pageChanges.filter(c=>c.type==='deleted').length;
-      const a=pageChanges.filter(c=>c.type==='added').length;
-      const m=pageChanges.filter(c=>c.type==='modified').length;
-      if(d) tags.innerHTML+=`<span class="ptag ptag-del">🩷 ${d} Deleted</span>`;
-      if(a) tags.innerHTML+=`<span class="ptag ptag-add">💜 ${a} Added</span>`;
-      if(m) tags.innerHTML+=`<span class="ptag ptag-mod">🔶 ${m} Modified</span>`;
-      if(isScanned) tags.innerHTML+=`<span class="ptag ptag-scan">🖨 Scanned</span>`;
-      if(!pg1&&pg2) tags.innerHTML+=`<span class="ptag ptag-new">✨ New Page</span>`;
-      if(pg1&&!pg2) tags.innerHTML+=`<span class="ptag ptag-del">🗑 Removed Page</span>`;
-      phdr.appendChild(tags);
-    }
-    wrap.appendChild(phdr);
+    setStep(5,'Report ready!');
+    await sleep(300);
+    showPhase('phase-report');
 
-    // Column labels
-    const colLbls=el('div','pdf-col-labels');
-    colLbls.innerHTML=`<div class="pdf-col-lbl old">🩷 Original — ${esc(names[1])}</div><div class="pdf-col-lbl new">💜 Updated — ${esc(names[2])}</div>`;
-    wrap.appendChild(colLbls);
+  }catch(err){
+    console.error(err);alert('Error: '+err.message);showPhase('phase-upload');
+  }
+}
 
-    // Canvases + annotation layers
-    const cvsRow=el('div','pdf-canvases');
-    // Left col
-    const leftCol=el('div','pdf-col');
-    if(renderData.c1){
-      leftCol.appendChild(renderData.c1);
-      if(leftAnnots.length){
-        const layer=buildAnnotLayer(renderData.c1, leftAnnots, 'del');
-        leftCol.appendChild(layer);
-      }
-    } else {
-      const ph=el('div');ph.style.cssText='padding:40px;color:#999;font-size:0.82rem;text-align:center';ph.textContent='Page not in original document';
-      leftCol.appendChild(ph);
-    }
-    cvsRow.appendChild(leftCol);
-    // Right col
-    const rightCol=el('div','pdf-col');
-    if(renderData.c2){
-      rightCol.appendChild(renderData.c2);
-      if(rightAnnots.length){
-        const layer=buildAnnotLayer(renderData.c2, rightAnnots, 'add');
-        rightCol.appendChild(layer);
-      }
-    } else {
-      const ph=el('div');ph.style.cssText='padding:40px;color:#999;font-size:0.82rem;text-align:center';ph.textContent='Page not in updated document';
-      rightCol.appendChild(ph);
-    }
-    cvsRow.appendChild(rightCol);
-    wrap.appendChild(cvsRow);
+/* ─── REPORT BUILDER ─────────────────────────── */
+async function buildReport({totalDel,totalAdd,totalMod,pageResults,maxPages},pdf1,pdf2){
+  const now=new Date().toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'});
+  const total=totalDel+totalAdd+totalMod;
+  const body=document.getElementById('rptBody');
+  body.innerHTML='';
 
-    if(isScanned){
-      const sn=el('div','scan-notice');
-      sn.innerHTML='⚠️ <strong>Scanned / image-based page detected.</strong> Text extraction is limited — annotation boxes may not align perfectly. Manual visual comparison recommended.';
-      wrap.appendChild(sn);
-    }
-    body.appendChild(wrap);
+  document.getElementById('rh-sub').textContent=`${names[1]} → ${names[2]} · ${now}`;
+  document.getElementById('b-del').innerHTML=`🩷 ${totalDel} Deleted`;
+  document.getElementById('b-add').innerHTML=`💜 ${totalAdd} Added`;
+  document.getElementById('b-mod').innerHTML=`🔶 ${totalMod} Modified`;
+
+  // ── Overall summary card
+  const oSum=mkEl('div','overall-summary');
+  const oHero=mkEl('div','os-hero');
+  const oTop=mkEl('div','os-hero-top');
+  const oMeta=mkEl('div');
+  oMeta.innerHTML=`<div class="os-title">📋 Overall Comparison Summary</div>
+    <div class="os-meta">${esc(names[1])} → ${esc(names[2])} · ${now} · ${maxPages} page(s) compared</div>`;
+  const oStats=mkEl('div','os-stats');
+  [{n:totalDel,l:'Deleted',cls:'os-stat-del'},{n:totalAdd,l:'Added',cls:'os-stat-add'},{n:totalMod,l:'Modified',cls:'os-stat-mod'},{n:total,l:'Total',cls:'os-stat-tot'}]
+    .forEach(s=>{oStats.innerHTML+=`<div class="os-stat ${s.cls}"><div class="os-stat-n">${s.n}</div><div class="os-stat-l">${s.l}</div></div>`;});
+  oTop.appendChild(oMeta);oTop.appendChild(oStats);oHero.appendChild(oTop);oSum.appendChild(oHero);
+
+  const oBody=mkEl('div','os-body');
+  const overview=mkEl('div','os-overview');
+  const changedPgs=pageResults.filter(r=>r.changes.length>0);
+  overview.innerHTML=total===0
+    ?'✅ <strong>No differences found.</strong> Both document versions appear identical across all pages.'
+    :`<strong>${total} change${total!==1?'s':''} across ${changedPgs.length} page${changedPgs.length!==1?'s':''}.</strong> ${totalDel} deletion${totalDel!==1?'s':''}, ${totalAdd} addition${totalAdd!==1?'s':''}, ${totalMod} modification${totalMod!==1?'s':''}. Use the page chips below to jump to any changed page.`;
+  oBody.appendChild(overview);
+
+  // Page chips
+  const chips=mkEl('div','os-pages-row');
+  chips.innerHTML='<span class="os-pages-lbl">Jump to page:</span>';
+  pageResults.forEach(r=>{
+    const ch=mkEl('span');
+    const hasDel=r.changes.some(c=>c.type==='deleted'||c.type==='modified');
+    const hasAdd=r.changes.some(c=>c.type==='added');
+    const hasChange=r.changes.length>0;
+    ch.className='pg-chip '+(hasChange?(hasAdd&&!hasDel?'added':'changed'):'clean');
+    ch.textContent=`Pg ${r.pageNum}${hasChange?' ('+r.changes.length+')':''}`;
+    if(hasChange) ch.onclick=()=>document.getElementById('pb-'+r.pageNum)?.scrollIntoView({behavior:'smooth',block:'start'});
+    chips.appendChild(ch);
+  });
+  oBody.appendChild(chips);
+  oSum.appendChild(oBody);
+  body.appendChild(oSum);
+
+  // How-to-read
+  const howto=mkEl('div','howto-bar');
+  howto.innerHTML=`
+    <div class="ht-item"><div class="ht-sw hts-del"></div><strong>Pink box</strong> = deleted — hover to see removed text &amp; replacement</div>
+    <div class="ht-item"><div class="ht-sw hts-add"></div><strong>Purple box</strong> = new addition</div>
+    <div class="ht-item"><div class="ht-sw hts-mod"></div><strong>Orange box</strong> = modified value</div>`;
+  body.appendChild(howto);
+
+  // ── Page-by-page blocks
+  for(const pr of pageResults){
+    const block=await buildPageBlock(pr,pdf1,pdf2);
+    body.appendChild(block);
   }
 
-  // Cache for download
-  reportHTMLCache = buildDownloadHTML(result, names, now, changes);
+  reportHTMLCache=buildDownloadHTML({totalDel,totalAdd,totalMod,pageResults},now);
 }
 
-async function renderBothPages(pdfDoc1, pdfDoc2, pNum, pg1, pg2){
-  const out={c1:null,c2:null,tc1:null,tc2:null,vp1:null,vp2:null};
-  const renderOne = async (doc, pgData, side)=>{
-    if(!doc||pNum>doc.numPages) return;
-    const page=await doc.getPage(pNum);
-    const vp0=page.getViewport({scale:1});
-    const scale=calcPageScale(vp0.width,vp0.height);
-    const vp=page.getViewport({scale});
-    const canvas=document.createElement('canvas');
-    canvas.width=vp.width; canvas.height=vp.height;
-    canvas.style.maxWidth='100%';
-    const ctx=canvas.getContext('2d');
-    await page.render({canvasContext:ctx,viewport:vp}).promise;
-    const tc=await page.getTextContent();
-    if(side===1){out.c1=canvas;out.tc1=tc;out.vp1=vp;}
-    else{out.c2=canvas;out.tc2=tc;out.vp2=vp;}
-  };
-  await Promise.all([renderOne(pdfDoc1,pg1,1), renderOne(pdfDoc2,pg2,2)]);
-  return out;
+async function buildPageBlock(pr,pdf1,pdf2){
+  const{pageNum,pg1,pg2,changes,page_summary}=pr;
+  const block=mkEl('div','page-block');
+  block.id='pb-'+pageNum;
+
+  // Header
+  const phdr=mkEl('div','pb-header');
+  const pgNum=mkEl('div','pb-page-num');
+  pgNum.innerHTML=`<span class="pg-label">PAGE ${pageNum}</span><span class="pb-page-title">${esc((pg2||pg1)?.title?.slice(0,65)||'')}</span>`;
+  const tags=mkEl('div','pb-tags');
+  const d=changes.filter(c=>c.type==='deleted').length;
+  const a=changes.filter(c=>c.type==='added').length;
+  const m=changes.filter(c=>c.type==='modified').length;
+  if(d)tags.innerHTML+=`<span class="ptag ptag-del">🩷 ${d} Del</span>`;
+  if(a)tags.innerHTML+=`<span class="ptag ptag-add">💜 ${a} Add</span>`;
+  if(m)tags.innerHTML+=`<span class="ptag ptag-mod">🔶 ${m} Mod</span>`;
+  if(!changes.length)tags.innerHTML+=`<span class="ptag ptag-clean">✅ No changes</span>`;
+  if((pg1||pg2)?.isScanned)tags.innerHTML+=`<span class="ptag ptag-scan">🖨 Scanned</span>`;
+  const isLocalOnly=(pg1?.hasLocal&&!pg1?.hasEnglish)||(pg2?.hasLocal&&!pg2?.hasEnglish);
+  if(isLocalOnly)tags.innerHTML+=`<span class="ptag ptag-local">🌐 Local lang</span>`;
+  if(pg1?.langMode==='bilingual'||pg2?.langMode==='bilingual')tags.innerHTML+=`<span class="ptag ptag-local">🌐 Bilingual</span>`;
+  phdr.appendChild(pgNum);phdr.appendChild(tags);
+  block.appendChild(phdr);
+
+  // Col labels
+  const colLbls=mkEl('div','pb-col-labels');
+  colLbls.innerHTML=`<div class="pb-col-lbl old">🩷 Original — ${esc(names[1])}</div><div class="pb-col-lbl new">💜 Updated — ${esc(names[2])}</div>`;
+  block.appendChild(colLbls);
+
+  // Render canvases
+  const vpW=Math.max(pg1?.vpW||0,pg2?.vpW||0,600);
+  const[r1,r2]=await Promise.all([renderCanvas(pdf1,pageNum,vpW),renderCanvas(pdf2,pageNum,vpW)]);
+
+  // Build annotation arrays
+  const leftAnnots=[],rightAnnots=[];
+  for(const c of changes){
+    if((c.type==='deleted'||c.type==='modified')&&c.old_snippet&&r1){
+      const rect=findRect(r1.tc,c.old_snippet,r1.vp);
+      if(rect)leftAnnots.push({type:c.type,rect,oldText:c.old_snippet,newText:c.new_snippet,desc:c.description});
+    }
+    if(r2){
+      const srch=c.highlight_text||c.new_snippet;
+      if(srch){
+        const rect=findRect(r2.tc,srch,r2.vp);
+        if(rect)rightAnnots.push({type:c.type,rect,oldText:c.old_snippet,newText:c.new_snippet||c.highlight_text,desc:c.description});
+      }
+    }
+  }
+
+  // Draw boxes
+  if(r1)leftAnnots.forEach(a=>drawBox(r1.canvas.getContext('2d'),a.rect,a.type==='deleted'?PINK:a.type==='added'?PURPLE:ORANGE));
+  if(r2)rightAnnots.forEach(a=>drawBox(r2.canvas.getContext('2d'),a.rect,a.type==='deleted'?PINK:a.type==='added'?PURPLE:ORANGE));
+
+  // Canvas row
+  const cvRow=mkEl('div','pb-canvases');
+  const lcol=mkEl('div','pb-col');
+  if(r1){lcol.appendChild(r1.canvas);if(leftAnnots.length)lcol.appendChild(makeAnnotLayer(r1.canvas,leftAnnots));}
+  else{const ph=mkEl('div','pb-placeholder');ph.textContent='Not present in original document';lcol.appendChild(ph);}
+  const rcol=mkEl('div','pb-col');
+  if(r2){rcol.appendChild(r2.canvas);if(rightAnnots.length)rcol.appendChild(makeAnnotLayer(r2.canvas,rightAnnots));}
+  else{const ph=mkEl('div','pb-placeholder');ph.textContent='Not present in updated version';rcol.appendChild(ph);}
+  cvRow.appendChild(lcol);cvRow.appendChild(rcol);
+  block.appendChild(cvRow);
+
+  // Notices
+  if((pg1||pg2)?.isScanned){
+    const sn=mkEl('div','scan-notice');
+    sn.innerHTML='⚠️ <strong>Scanned / image page detected.</strong> Text extraction is limited — annotation boxes may not align. Manual visual check recommended.';
+    block.appendChild(sn);
+  }
+  if(isLocalOnly){
+    const ln=mkEl('div','local-notice');
+    ln.innerHTML='🌐 <strong>Local language page.</strong> No English text detected — full local-script text was sent to AI for comparison.';
+    block.appendChild(ln);
+  }
+
+  // ── PER-PAGE CHANGE SUMMARY (below the PDF canvases)
+  const pbSum=mkEl('div','pb-summary');
+  const sumHead=mkEl('div','pb-sum-head');
+  sumHead.textContent=`Page ${pageNum} — Changes Found`;
+  pbSum.appendChild(sumHead);
+
+  if(!changes.length){
+    const clean=mkEl('div','pb-clean-msg');
+    clean.innerHTML=`✅ ${esc(page_summary||'No changes detected on this page.')}`;
+    pbSum.appendChild(clean);
+  } else {
+    // Narrative summary
+    if(page_summary){
+      const narr=mkEl('div','pb-narrative');
+      narr.textContent=page_summary;
+      pbSum.appendChild(narr);
+    }
+    // Individual changes
+    const chList=mkEl('div','pb-change-list');
+    changes.forEach((c,idx)=>{
+      const icon=c.type==='deleted'?'🩷':c.type==='added'?'💜':'🔶';
+      const rowCls='pb-change '+(c.type==='deleted'?'pbc-del':c.type==='added'?'pbc-add':'pbc-mod');
+      const typeCls=c.type==='deleted'?'pbt-del':c.type==='added'?'pbt-add':'pbt-mod';
+      const typeLabel=c.type==='deleted'?'Deleted':c.type==='added'?'Added':'Modified';
+      const sigCls=c.significance==='high'?'sig-h':c.significance==='low'?'sig-l':'sig-m';
+      const sigLabel=c.significance==='high'?'🔴 High':c.significance==='low'?'⚪ Low':'🟡 Medium';
+      const hasEvid=c.old_snippet||c.new_snippet;
+      const vid='ev'+(evidCounter++);
+      const row=mkEl('div',rowCls);
+      row.innerHTML=`<div class="pbc-icon">${icon}</div>
+        <div class="pbc-body">
+          <div class="pbc-top">
+            <span class="pbc-type ${typeCls}">${typeLabel}</span>
+            <span class="pbc-sig ${sigCls}">${sigLabel}</span>
+          </div>
+          <div class="pbc-desc">${esc(c.description||'')}</div>
+          ${c.operationalImpact?`<div class="pbc-impact">✈ ${esc(c.operationalImpact)}</div>`:''}
+          ${hasEvid?`<button class="pbc-evid-btn" onclick="toggleEvid('${vid}',this)">▼ Show evidence</button>
+          <div class="pbc-evid" id="${vid}">
+            ${c.old_snippet?`<div class="evid-row evid-del-row"><div class="evid-lbl">Removed from original</div><div class="evid-del-text">${esc(c.old_snippet)}</div></div>`:''}
+            ${c.new_snippet?`<div class="evid-row evid-add-row"><div class="evid-lbl">In updated version</div><div class="evid-add-text">${esc(c.new_snippet)}</div></div>`:''}
+          </div>`:''}
+        </div>`;
+      chList.appendChild(row);
+    });
+    pbSum.appendChild(chList);
+  }
+  block.appendChild(pbSum);
+  return block;
 }
 
-function buildAnnotLayer(canvas, annots, side){
+function makeAnnotLayer(canvas,annots){
   const wrap=document.createElement('div');
-  wrap.style.cssText=`position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;display:flex;justify-content:center;padding:10px`;
+  wrap.className='annot-wrap';
   const layer=document.createElement('div');
-  layer.style.cssText=`position:relative;width:${canvas.width}px;height:${canvas.height}px;pointer-events:auto`;
+  layer.className='annot-layer';
+  layer.style.cssText=`width:${canvas.width}px;height:${canvas.height}px`;
   annots.forEach(a=>{
-    const isDel=a.type==='deleted';
-    const isAdd=a.type==='added';
-    const boxCls=isDel?'del-box':isAdd?'add-box':'mod-box';
+    const isDel=a.type==='deleted',isAdd=a.type==='added';
     const box=document.createElement('div');
-    box.className='ann-box '+boxCls;
+    box.className='ann-box '+(isDel?'del-box':isAdd?'add-box':'mod-box');
     box.style.cssText=`left:${a.rect.x}px;top:${a.rect.y}px;width:${a.rect.w}px;height:${a.rect.h}px`;
-    // Build tooltip
-    const tip=document.createElement('div');
-    tip.className='ann-tip';
-    // Position tip above or below
-    if(a.rect.y > canvas.height/2){
-      tip.style.bottom=(a.rect.h+8)+'px'; tip.style.top='auto';
-    } else {
-      tip.style.top=(a.rect.h+8)+'px';
-    }
+    const tip=document.createElement('div');tip.className='ann-tip';
+    if(a.rect.y>canvas.height/2){tip.style.bottom=(a.rect.h+8)+'px';tip.style.top='auto';}
+    else{tip.style.top=(a.rect.h+8)+'px';}
     tip.style.left='0';
-    let tipHtml='';
+    let html='';
     if(isDel){
-      tipHtml=`<div class="ann-tip-head">🩷 Deleted Text</div><div class="ann-tip-body">${esc(a.oldText||a.desc)}</div>`;
-      if(a.newText) tipHtml+=`<div class="ann-tip-replaced"><div class="ann-tip-rhead">💜 Replaced with</div><div class="ann-tip-body" style="color:#c4b5fd">${esc(a.newText)}</div></div>`;
-    } else if(isAdd){
-      tipHtml=`<div class="ann-tip-head add-head">💜 Added Text</div><div class="ann-tip-body">${esc(a.newText||a.desc)}</div>`;
-    } else {
-      tipHtml=`<div class="ann-tip-head" style="color:#fdba74">🔶 Modified</div><div class="ann-tip-body">${esc(a.desc)}</div>`;
-      if(a.oldText) tipHtml+=`<div class="ann-tip-replaced"><div class="ann-tip-rhead" style="color:#fda4af">Was: </div><div class="ann-tip-body" style="color:#fda4af;text-decoration:line-through">${esc(a.oldText)}</div></div>`;
+      html=`<div class="tip-head">🩷 Deleted Text</div><div class="tip-body">${esc(a.oldText||a.desc)}</div>`;
+      if(a.newText)html+=`<div class="tip-replaced"><div class="tip-rhead" style="color:#c4b5fd">💜 Replaced with</div><div class="tip-body" style="color:#c4b5fd">${esc(a.newText)}</div></div>`;
+    }else if(isAdd){
+      html=`<div class="tip-head add">💜 Added</div><div class="tip-body">${esc(a.newText||a.desc)}</div>`;
+    }else{
+      html=`<div class="tip-head mod">🔶 Modified</div><div class="tip-body">${esc(a.desc)}</div>`;
+      if(a.oldText)html+=`<div class="tip-replaced"><div class="tip-rhead" style="color:#fda4af">Was:</div><div class="tip-body" style="color:#fda4af;text-decoration:line-through">${esc(a.oldText)}</div></div>`;
     }
-    tip.innerHTML=tipHtml;
-    box.appendChild(tip);
-    layer.appendChild(box);
+    tip.innerHTML=html;box.appendChild(tip);layer.appendChild(box);
   });
-  wrap.appendChild(layer);
-  return wrap;
+  wrap.appendChild(layer);return wrap;
 }
 
-// ── MISC HELPERS ─────────────────────────────────────
-function el(tag, cls){
-  const e=document.createElement(tag);
-  if(cls) e.className=cls;
-  return e;
-}
-function esc(s){ if(!s) return ''; return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 function toggleEvid(id,btn){
-  const el=document.getElementById(id);
-  el.classList.toggle('open');
-  btn.textContent=el.classList.contains('open')?'▲ Hide evidence':'▼ Show evidence';
-}
-function resetApp(){
-  files={1:null,2:null}; names={1:'',2:''}; reportHTMLCache=''; annotData={};
-  ['f1','f2'].forEach(id=>{document.getElementById(id).value='';});
-  ['fn1','fn2'].forEach(id=>{document.getElementById(id).textContent='';});
-  ['dz1','dz2'].forEach(id=>{document.getElementById(id).classList.remove('has-file');});
-  document.getElementById('rptBody').innerHTML='';
-  updateBtn(); showPhase('phase-upload');
+  const e=document.getElementById(id);e.classList.toggle('open');
+  btn.textContent=e.classList.contains('open')?'▲ Hide evidence':'▼ Show evidence';
 }
 
-// ═══════════════════════════════════════════════════════
-// DOWNLOAD
-// ═══════════════════════════════════════════════════════
-function buildDownloadHTML(result, names, now, changes){
-  const rows=changes.map(c=>{
-    const t=c.type==='deleted'?'🩷 Deleted':c.type==='added'?'💜 Added':'🔶 Modified';
-    const s=c.significance==='high'?'🔴 High':c.significance==='low'?'⚪ Low':'🟡 Medium';
-    return `<tr>
-      <td>${t}</td><td>pg ${c.page_b||'?'}</td>
-      <td>${esc(c.section||'')}</td>
-      <td>${esc(c.description||'')}</td>
-      <td style="font-family:monospace;font-size:.8em;color:#d4156b;text-decoration:line-through">${esc(c.old_snippet||'—')}</td>
-      <td style="font-family:monospace;font-size:.8em;color:#6d28d9">${esc(c.new_snippet||'—')}</td>
-      <td>${esc(c.operationalImpact||'')}</td>
-      <td>${s}</td>
-    </tr>`;
-  }).join('');
-  const {stats}=result;
-  return `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">
+/* ─── DOWNLOAD ────────────────────────────────── */
+function buildDownloadHTML({totalDel,totalAdd,totalMod,pageResults},now){
+  let rows='';
+  pageResults.forEach(pr=>{
+    rows+=`<tr style="background:#0d1520"><td colspan="6" style="color:#fff;font-weight:700;padding:8px 12px;font-size:.82em">
+      PAGE ${pr.pageNum}${pr.pg2?.title?' — '+esc(pr.pg2.title.slice(0,60)):''}<br>
+      <span style="font-weight:400;color:#94a3b8;font-size:.78em">${esc(pr.page_summary||'')}</span>
+    </td></tr>`;
+    if(!pr.changes.length){
+      rows+=`<tr><td colspan="6" style="color:#999;padding:8px 12px;font-size:.79em">✅ No changes on this page</td></tr>`;
+    } else {
+      pr.changes.forEach(c=>{
+        const t=c.type==='deleted'?'🩷 Del':c.type==='added'?'💜 Add':'🔶 Mod';
+        const s=c.significance==='high'?'🔴 High':c.significance==='low'?'⚪ Low':'🟡 Med';
+        rows+=`<tr>
+          <td>${t}</td>
+          <td style="font-family:monospace;font-size:.76em;color:#d4156b;text-decoration:line-through">${esc(c.old_snippet||'—')}</td>
+          <td style="font-family:monospace;font-size:.76em;color:#6d28d9">${esc(c.new_snippet||'—')}</td>
+          <td>${esc(c.description||'')}</td>
+          <td>${esc(c.operationalImpact||'')}</td>
+          <td>${s}</td>
+        </tr>`;
+      });
+    }
+  });
+  return`<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">
 <title>Comparison Report — ${esc(names[2])}</title>
-<style>
-body{font-family:Arial,sans-serif;margin:36px;color:#1a1a2e;font-size:13px}
-h1{font-size:1.35rem;margin-bottom:4px}
-.meta{color:#666;font-size:.82rem;margin-bottom:22px}
-.stats{display:flex;gap:14px;margin-bottom:22px;flex-wrap:wrap}
-.stat{background:#f0f4ff;border:1px solid #c7d7fe;border-radius:8px;padding:10px 18px;text-align:center}
-.stat-n{font-size:1.6rem;font-weight:700}.stat-l{font-size:.65rem;text-transform:uppercase;letter-spacing:1px;color:#666;margin-top:2px}
-.legend{display:flex;gap:18px;margin-bottom:16px;font-size:.8rem;flex-wrap:wrap;align-items:center}
-.leg{display:flex;align-items:center;gap:7px}
-.dot{width:14px;height:12px;border-radius:3px;border:2px solid}
-table{width:100%;border-collapse:collapse;font-size:.8rem}
-th{background:#0d1520;color:#fff;padding:9px 11px;text-align:left;font-weight:600;font-size:.77rem}
-td{padding:8px 11px;border-bottom:1px solid #eee;vertical-align:top}
-tr:nth-child(even) td{background:#f9f9fb}
-tr:hover td{background:#eff6ff}
-</style></head><body>
-<h1>📄 AIP Document Comparison Report</h1>
-<div class="meta"><strong>From:</strong> ${esc(names[1])} &nbsp;→&nbsp; <strong>To:</strong> ${esc(names[2])} &nbsp;·&nbsp; ${now}</div>
+<style>body{font-family:Arial,sans-serif;margin:32px;color:#1a1a2e;font-size:13px}h1{font-size:1.25rem;margin-bottom:4px}.meta{color:#666;font-size:.79rem;margin-bottom:20px}.stats{display:flex;gap:12px;margin-bottom:20px;flex-wrap:wrap}.stat{background:#f0f4ff;border:1px solid #c7d7fe;border-radius:8px;padding:9px 16px;text-align:center}.stat-n{font-size:1.4rem;font-weight:700}.stat-l{font-size:.61rem;text-transform:uppercase;letter-spacing:1px;color:#666;margin-top:2px}table{width:100%;border-collapse:collapse;font-size:.79rem}th{background:#0d1520;color:#fff;padding:8px 11px;text-align:left;font-weight:600}td{padding:8px 11px;border-bottom:1px solid #eee;vertical-align:top}tr:nth-child(even) td{background:#f9f9fb}</style>
+</head><body>
+<h1>📄 AIP Document Comparison — Page by Page</h1>
+<div class="meta"><strong>From:</strong> ${esc(names[1])} → <strong>To:</strong> ${esc(names[2])} · ${now}</div>
 <div class="stats">
-  <div class="stat"><div class="stat-n" style="color:#d4156b">${stats.deleted}</div><div class="stat-l">Deleted</div></div>
-  <div class="stat"><div class="stat-n" style="color:#6d28d9">${stats.added}</div><div class="stat-l">Added</div></div>
-  <div class="stat"><div class="stat-n" style="color:#c2410c">${stats.modified}</div><div class="stat-l">Modified</div></div>
-  <div class="stat"><div class="stat-n">${stats.deleted+stats.added+stats.modified}</div><div class="stat-l">Total</div></div>
+  <div class="stat"><div class="stat-n" style="color:#d4156b">${totalDel}</div><div class="stat-l">Deleted</div></div>
+  <div class="stat"><div class="stat-n" style="color:#6d28d9">${totalAdd}</div><div class="stat-l">Added</div></div>
+  <div class="stat"><div class="stat-n" style="color:#c2410c">${totalMod}</div><div class="stat-l">Modified</div></div>
+  <div class="stat"><div class="stat-n">${totalDel+totalAdd+totalMod}</div><div class="stat-l">Total</div></div>
 </div>
-<div class="legend">
-  <div class="leg"><div class="dot" style="background:#fff0f7;border-color:#d4156b"></div>🩷 Deleted (strikethrough)</div>
-  <div class="leg"><div class="dot" style="background:#f5f3ff;border-color:#6d28d9"></div>💜 Added</div>
-  <div class="leg"><div class="dot" style="background:#fff7ed;border-color:#c2410c"></div>🔶 Modified</div>
-</div>
-<table>
-  <thead><tr><th>Type</th><th>Page</th><th>Section</th><th>Description</th><th>Old Text</th><th>New Text</th><th>Impact</th><th>Significance</th></tr></thead>
-  <tbody>${rows}</tbody>
-</table>
+<table><thead><tr><th>Type</th><th>Old Text</th><th>New Text</th><th>Description</th><th>Impact</th><th>Significance</th></tr></thead>
+<tbody>${rows}</tbody></table>
 </body></html>`;
 }
 function downloadReport(){
@@ -1065,6 +910,14 @@ function downloadReport(){
   const url=URL.createObjectURL(blob);
   const a=document.createElement('a');a.href=url;a.download=`AIP-compare-${new Date().toISOString().slice(0,10)}.html`;
   document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(url);
+}
+function resetApp(){
+  files={1:null,2:null};names={1:'',2:''};reportHTMLCache='';evidCounter=0;
+  ['f1','f2'].forEach(id=>{document.getElementById(id).value='';});
+  ['fn1','fn2'].forEach(id=>{document.getElementById(id).textContent='';});
+  ['dz1','dz2'].forEach(id=>{document.getElementById(id).classList.remove('has-file');});
+  document.getElementById('rptBody').innerHTML='';
+  updateBtn();showPhase('phase-upload');
 }
 </script>
 </body>
