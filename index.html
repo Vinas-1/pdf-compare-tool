@@ -493,22 +493,36 @@ const PINK={r:212,g:21,b:107},PURPLE={r:109,g:40,b:217},ORANGE={r:194,g:65,b:12}
 /* ─── SIMILARITY ─────────────────────────────── */
 function similarity(a,b){
   if(!a&&!b)return 1;if(!a||!b)return 0;
-  const sa=new Set(a.toLowerCase().split(/\W+/).filter(w=>w.length>3));
-  const sb=new Set(b.toLowerCase().split(/\W+/).filter(w=>w.length>3));
+  // Include ALL tokens (even short ones like dates, codes, numbers)
+  const sa=new Set(a.toLowerCase().split(/\s+/).filter(w=>w.length>1));
+  const sb=new Set(b.toLowerCase().split(/\s+/).filter(w=>w.length>1));
   if(!sa.size&&!sb.size)return 1;
   let c=0;for(const w of sa)if(sb.has(w))c++;
   return c/Math.max(sa.size,sb.size,1);
 }
 
+// Extract all numbers, dates, codes from text — if ANY differ, pages must be AI-compared
+function numFingerprint(text){
+  if(!text)return[];
+  // Match: dates (22 JAN 2026, 11 DEC 2025), numbers, codes like 01/26, 20/26, PCR values
+  const matches=text.match(/\b(\d{1,2}[\s\/\-]\w+[\s\/\-]\d{2,4}|\d{4}|\d{1,2}\/\d{2}|\d+\.\d+|PCR\s*\d+|SUP\s*\d+|AIP\s*\d+)\b/gi)||[];
+  return matches.map(m=>m.toLowerCase().replace(/\s+/g,''));
+}
+function hasNumericChange(t1,t2){
+  const f1=numFingerprint(t1).sort().join('|');
+  const f2=numFingerprint(t2).sort().join('|');
+  return f1!==f2;
+}
+
 /* ─── AI COMPARISON ──────────────────────────── */
 async function compareOnePage(pg1,pg2,pageNum){
-  const t1=pg1.textForAI.slice(0,1600);
-  const t2=pg2.textForAI.slice(0,1600);
+  const t1=pg1.textForAI.slice(0,2400);
+  const t2=pg2.textForAI.slice(0,2400);
   const langNote=pg1.langMode==='local'||pg2.langMode==='local'
     ?`This page contains local language script (Gujarati/Hindi/etc). Compare all content faithfully — numbers, names, dates in any script are important.`
     :`This page is in English (or bilingual with English extracted).`;
 
-  const prompt=`You are an expert government document auditor. Compare page ${pageNum} of two versions of an official document.
+  const prompt=`You are an expert aviation document auditor specialising in AIP (Aeronautical Information Publication) supplements. Compare page ${pageNum} of two versions.
 
 ${langNote}
 
@@ -518,18 +532,26 @@ ${t1||(pg1.isScanned?'[Scanned/image page — no text extracted]':'(empty page)'
 ── NEW VERSION (Page ${pageNum}) ──
 ${t2||(pg2.isScanned?'[Scanned/image page — no text extracted]':'(empty page)')}
 
-Find ALL genuine differences: changed numbers, dates, names, amounts, rates, codes, procedures, legal text, deadlines, addresses, contact details, table values, headings.
+YOUR PRIMARY TASK — Find EVERY difference, paying special attention to:
+• Publication dates (e.g. "11 DEC 2025" → "19 MAR 2026")
+• Supplement/SUP numbers (e.g. "01/26" → "20/26")
+• Effective dates (e.g. "22 JAN 2026" → "16 APR 2026")
+• Phase numbers, start dates, finish dates in tables
+• Rows added or removed from tables (e.g. a Phase 1 row disappearing)
+• New sentences or clauses added (e.g. "This AIP Supplement replaces...")
+• Appendix numbers or page ranges
+• PCR values, bay numbers, taxiway codes
 
-Rules:
-• "old_snippet": verbatim short phrase from OLD (8–35 chars, exact words).
-• "new_snippet": verbatim short phrase from NEW (8–35 chars, exact words).
-• "highlight_text": exact phrase in NEW to visually highlight (5–20 chars, verbatim in NEW). For pure deletions, use a nearby phrase still present in NEW.
-• "significance": "high" for number/date/legal/rate changes; "medium" for rewording; "low" for minor.
+Rules for snippets:
+• "old_snippet": verbatim exact phrase from OLD (8–40 chars). MUST exist word-for-word in old text.
+• "new_snippet": verbatim exact phrase from NEW (8–40 chars). MUST exist word-for-word in new text.
+• "highlight_text": short verbatim phrase in NEW to draw a box around (4–20 chars). For deletions pick a nearby phrase still in NEW.
+• "significance": "high" for any number/date/code/table change; "medium" for rewording; "low" for minor.
 • "type": "deleted"|"added"|"modified".
-• DO NOT report whitespace-only or cosmetic formatting differences.
+• Do NOT report pure whitespace differences.
 
-Return ONLY valid JSON — no markdown, no explanation:
-{"page_summary":"1–2 sentence plain-English summary of ALL changes on this specific page, or 'No changes detected on this page.'","changes":[{"type":"modified","highlight_text":"exact phrase in new","old_snippet":"from old","new_snippet":"from new","description":"clear description of exactly what changed","significance":"high","operationalImpact":"one sentence why this matters"}]}`;
+Return ONLY valid JSON:
+{"page_summary":"1–2 sentence plain-English summary of ALL changes on this page, or 'No changes detected on this page.'","changes":[{"type":"modified","highlight_text":"exact phrase","old_snippet":"from old","new_snippet":"from new","description":"clear description of what changed","significance":"high","operationalImpact":"why this matters"}]}`;
 
   return fetchGroq(prompt);
 }
@@ -544,7 +566,7 @@ async function fetchGroq(prompt,attempt=1){
         {role:'system',content:'You are a government document auditor. Return ONLY valid JSON. No markdown fences, no text outside the JSON object.'},
         {role:'user',content:prompt}
       ],
-      temperature:0,max_tokens:1200,
+      temperature:0,max_tokens:2000,
       response_format:{type:'json_object'}
     })
   });
@@ -605,7 +627,9 @@ async function startComparison(){
         result={page_summary:'Both versions of this page are scanned images — text comparison not possible.',changes:[]};
       } else {
         const sim=similarity(pg1.textForAI,pg2.textForAI);
-        if(sim>=0.97){
+        const numChanged=hasNumericChange(pg1.textForAI,pg2.textForAI);
+        // Send to AI if: word similarity below 0.75 OR any number/date/code changed
+        if(sim>=0.75 && !numChanged){
           result={page_summary:'No changes detected on this page.',changes:[]};
         } else {
           try{result=await compareOnePage(pg1,pg2,p);}
